@@ -1,0 +1,71 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+File secretPropsFile = file('../secret.properties')
+Properties secretProps = new Properties()
+if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
+
+String libVersionName = "0.0.1"
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 28
+        versionCode 1
+        versionName libVersionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        archivesBaseName = "$archivesBaseName-$versionName"
+    }
+    buildTypes {
+        debug {
+            buildConfigField('String', 'MAPBOX_ACCESS_TOKEN', '"' + secretProps.getProperty('mapbox.accessToken', '') + '"' )
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.novoda:bintray-release:0.9'
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX
+    implementation 'androidx.core:core-ktx:1.0.1'
+
+    // Mapbox
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:$mapbox_version"
+
+    // Testing libraries
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
+
+publish {
+    userOrg = ''
+    repoName = 'mapbox-plugin-offline'
+    groupId = 'dev.micheleferretti'
+    artifactId = 'mapbox-plugin-offline'
+    publishVersion = libVersionName
+    desc = 'An alternative version of Mapbox offline plugin, written in Kotlin.'
+    website = 'https://github.com/xit0c/mapbox-plugin-offline'
+    bintrayUser = secretProps.getProperty('bintray.user', '')
+    bintrayKey = secretProps.getProperty('bintray.key', '')
+    dryRun = true
+}

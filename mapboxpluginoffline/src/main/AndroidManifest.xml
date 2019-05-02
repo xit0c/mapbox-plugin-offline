@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.micheleferretti.mapboxpluginoffline">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application>
+        <service
+            android:name=".OfflineService"
+            android:enabled="true"
+            android:exported="false" />
+    </application>
+
+</manifest>
