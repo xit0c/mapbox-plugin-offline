@@ -9,12 +9,9 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.core.app.NotificationCompat
-import dev.micheleferretti.mapboxpluginoffline.OfflineService
 import dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions
 
 object NotificationUtils {
-
-    const val EXTRA_REGION_ID = "extra.REGION_ID"
 
     private const val CHANNEL_ID = "channel.MAPBOX_OFFLINE_DOWNLOAD"
     private const val CHANNEL_NAME = "Mapbox Offline Download"
@@ -38,18 +35,11 @@ object NotificationUtils {
             .setContentIntent(PendingIntent.getActivity(
                 context,
                 regionId.toInt(),
-                Intent(context, notificationOptions.returnActivity).apply { putExtra(EXTRA_REGION_ID, regionId) },
+                Intent(context, notificationOptions.returnActivity).apply {
+                    putExtra(NotificationOptions.EXTRA_REGION_ID_FOR_ACTIVITY, regionId)
+                },
                 0
             ))
             .setCategory(NotificationCompat.CATEGORY_PROGRESS)
             .setOnlyAlertOnce(true)
-
-    fun cancelableNotificationBuilder(context: Context, notificationOptions: NotificationOptions, regionId: Long): NotificationCompat.Builder =
-        baseNotificationBuilder(context, notificationOptions, regionId)
-            .addAction(0, context.getString(notificationOptions.cancelActionTextRes), PendingIntent.getService(
-                context,
-                regionId.toInt(),
-                OfflineService.createIntent(context, OfflineService.ACTION_CANCEL, regionId),
-                0
-            ))
 }

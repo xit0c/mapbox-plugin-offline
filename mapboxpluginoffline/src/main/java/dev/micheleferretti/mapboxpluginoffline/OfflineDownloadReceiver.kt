@@ -76,7 +76,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         }
     }
 
-    val currentDownloads = hashMapOf<Long, OfflineDownload>()
+    val activeDownloads = hashMapOf<Long, OfflineDownload>()
 
     fun register(context: Context) = LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter().apply {
         addAction(ACTION_CREATE)
@@ -90,7 +90,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
 
     fun unregister(context: Context) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
-        currentDownloads.clear()
+        activeDownloads.clear()
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -121,7 +121,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     }
 
     open fun onCreate(context: Context, download: OfflineDownload) {
-        currentDownloads[download.regionId] = download
+        activeDownloads[download.regionId] = download
     }
 
     open fun onCreateError(context: Context, options: OfflineDownloadOptions, error: String?) {
@@ -129,22 +129,22 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     }
 
     open fun onDelete(context: Context, download: OfflineDownload) {
-        currentDownloads.remove(download.regionId)
+        activeDownloads.remove(download.regionId)
     }
 
     open fun onDeleteError(context: Context, download: OfflineDownload, error: String?) {
-        currentDownloads.remove(download.regionId)
+        activeDownloads.remove(download.regionId)
     }
 
     open fun onStatusChanged(context: Context, download: OfflineDownload) {
-        currentDownloads[download.regionId] = download
+        if (download.isActive) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
     }
 
     open fun onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {
-        currentDownloads.remove(download.regionId)
+        activeDownloads.remove(download.regionId)
     }
 
     open fun onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long) {
-        currentDownloads.remove(download.regionId)
+        activeDownloads.remove(download.regionId)
     }
 }

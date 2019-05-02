@@ -2,6 +2,7 @@ package dev.micheleferretti.mapboxpluginoffline.model
 
 import android.os.Bundle
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
+import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.convertToString
 
 class OfflineDownloadOptions(
@@ -22,11 +23,19 @@ class OfflineDownloadOptions(
         )
     }
 
+    constructor(
+        definition: OfflineRegionDefinition,
+        notificationOptions: NotificationOptions,
+        regionName: String
+    ) : this(definition, notificationOptions, OfflineUtils.convertRegionName(regionName))
+
     fun toBundle() = Bundle().apply {
         putParcelable(EXTRA_DEFINITION, definition)
         putBundle(EXTRA_NOTIFICATION_OPTIONS, notificationOptions.toBundle())
         putByteArray(EXTRA_METADATA, metadata)
     }
+
+    fun getRegionName() = OfflineUtils.convertRegionName(metadata)
 
     override fun toString() = "OfflineDownloadOptions(" +
             "definition=${definition.convertToString()}, " +

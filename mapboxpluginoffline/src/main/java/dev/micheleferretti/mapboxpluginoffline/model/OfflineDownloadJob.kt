@@ -10,29 +10,19 @@ import com.mapbox.mapboxsdk.snapshotter.MapSnapshotter
 import dev.micheleferretti.mapboxpluginoffline.OfflineService
 import dev.micheleferretti.mapboxpluginoffline.utils.NotificationUtils
 
-class OfflineWork(
+class OfflineDownloadJob(
     context: Context,
     options: OfflineDownloadOptions,
     val region: OfflineRegion
 ) {
 
-    private val notificationPause: NotificationCompat.Builder =
-        NotificationUtils.cancelableNotificationBuilder(context, options.notificationOptions, region.id)
-            .setContentText(context.getString(options.notificationOptions.pauseContentTextRes))
-            .addAction(0, context.getString(options.notificationOptions.resumeActionTextRes), PendingIntent.getService(
-                context,
-                region.id.toInt(),
-                OfflineService.createIntent(context, OfflineService.ACTION_RESUME, region.id),
-                0
-            ))
-
-    private val notificationResume: NotificationCompat.Builder =
-        NotificationUtils.cancelableNotificationBuilder(context, options.notificationOptions, region.id)
+    private val notificationDownload: NotificationCompat.Builder =
+        NotificationUtils.baseNotificationBuilder(context, options.notificationOptions, region.id)
             .setContentText(context.getString(options.notificationOptions.downloadContentTextRes))
-            .addAction(0, context.getString(options.notificationOptions.pauseActionTextRes), PendingIntent.getService(
+            .addAction(0, context.getString(options.notificationOptions.cancelActionTextRes), PendingIntent.getService(
                 context,
                 region.id.toInt(),
-                OfflineService.createIntent(context, OfflineService.ACTION_PAUSE, region.id),
+                OfflineService.createIntent(context, OfflineService.ACTION_CANCEL, region.id),
                 0
             ))
 
@@ -51,18 +41,14 @@ class OfflineWork(
         }).apply {
             start {
                 notificationCancel.setLargeIcon(it.bitmap)
-                notificationPause.setLargeIcon(it.bitmap)
-                notificationResume.setLargeIcon(it.bitmap)
+                notificationDownload.setLargeIcon(it.bitmap)
             }
         }
 
     var download = OfflineDownload(region.id, options)
 
-    fun getNotificationPause(): Notification =
-        notificationPause.setProgress(100, download.getPercentage(), false).build()
-
-    fun getNotificationResume(): Notification =
-        notificationResume.setProgress(100, download.getPercentage(), false).build()
+    fun getNotificationDownload(): Notification =
+        notificationDownload.setProgress(100, download.getPercentage(), false).build()
 
     fun updateDownload(status: OfflineRegionStatus) {
         download = OfflineDownload(

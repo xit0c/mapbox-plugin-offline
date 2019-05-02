@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationManagerCompat
 import com.mapbox.mapboxsdk.offline.OfflineManager
 import com.mapbox.mapboxsdk.offline.OfflineRegion
@@ -13,7 +12,7 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionError
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
-import dev.micheleferretti.mapboxpluginoffline.model.OfflineWork
+import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadJob
 import dev.micheleferretti.mapboxpluginoffline.utils.NotificationUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 
@@ -22,11 +21,8 @@ class OfflineService : Service() {
     companion object {
         const val ACTION_DOWNLOAD = "action.DOWNLOAD"
         const val ACTION_CANCEL = "action.CANCEL"
-        const val ACTION_PAUSE = "action.PAUSE"
-        const val ACTION_RESUME = "action.RESUME"
 
         private const val EXTRA_REGION_ID = "extra.REGION_ID"
-        private const val TAG = "OfflineService"
 
         @JvmStatic
         fun startDownload(context: Context, offlineDownloadOptions: OfflineDownloadOptions) {
@@ -36,16 +32,6 @@ class OfflineService : Service() {
         @JvmStatic
         fun cancelDownload(context: Context, regionId: Long) {
             context.startService(createIntent(context, ACTION_CANCEL, regionId))
-        }
-
-        @JvmStatic
-        fun pauseDownload(context: Context, regionId: Long) {
-            context.startService(createIntent(context, ACTION_PAUSE, regionId))
-        }
-
-        @JvmStatic
-        fun resumeDownload(context: Context, regionId: Long) {
-            context.startService(createIntent(context, ACTION_RESUME, regionId))
         }
 
         @JvmStatic
@@ -62,7 +48,7 @@ class OfflineService : Service() {
 
     private lateinit var notificationManager: NotificationManagerCompat
 
-    private val works = hashMapOf<Long, OfflineWork>()
+    private val jobs = hashMapOf<Long, OfflineDownloadJob>()
 
     override fun onCreate() {
         super.onCreate()
@@ -71,17 +57,15 @@ class OfflineService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d(TAG, "onStartCommand: works = $works")
         when (intent?.action) {
             ACTION_DOWNLOAD -> {
                 val options = OfflineDownloadOptions.fromBundle(requireNotNull(intent.extras))
-                Log.d(TAG, "ACTION_DOWNLOAD: options = $options")
                 OfflineManager.getInstance(applicationContext).createOfflineRegion(
                     options.definition,
                     options.metadata ?: byteArrayOf(),
                     object : OfflineManager.CreateOfflineRegionCallback {
                         override fun onCreate(offlineRegion: OfflineRegion?) {
-                            if (offlineRegion != null) startWork(OfflineWork(applicationContext, options, offlineRegion))
+                            if (offlineRegion != null) startJob(OfflineDownloadJob(applicationContext, options, offlineRegion))
                             else OfflineDownloadReceiver.dispatchCreateError(applicationContext, options, "OfflineRegion is null")
                         }
 
@@ -92,105 +76,83 @@ class OfflineService : Service() {
                 )
             }
             ACTION_CANCEL -> intent.extras?.requireLong(EXTRA_REGION_ID)?.also {
-                Log.d(TAG, "ACTION_CANCEL: regionId = $it")
-                val work = works[it]
-                if (work != null) {
-                    notificationManager.notify(work.region.id.toInt(), work.notificationCancel.build())
-                    work.region.setObserver(null)
-                    work.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
-                    work.region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
+                val job = jobs[it]
+                if (job != null) {
+                    notificationManager.notify(job.region.id.toInt(), job.notificationCancel.build())
+                    job.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
+                    job.region.setObserver(null)
+                    job.region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
                         override fun onDelete() {
-                            OfflineDownloadReceiver.dispatchDelete(applicationContext, work.download)
-                            finishWork(it)
+                            OfflineDownloadReceiver.dispatchDelete(applicationContext, job.download)
+                            finishJob(it)
                         }
 
                         override fun onError(error: String?) {
-                            OfflineDownloadReceiver.dispatchDeleteError(applicationContext, work.download, error)
-                            finishWork(it)
+                            OfflineDownloadReceiver.dispatchDeleteError(applicationContext, job.download, error)
+                            finishJob(it)
                         }
                     })
                 }
-            }
-            ACTION_PAUSE -> intent.extras?.requireLong(EXTRA_REGION_ID)?.also {
-                Log.d(TAG, "ACTION_PAUSE: regionId = $it")
-                works[it]?.region?.setDownloadState(OfflineRegion.STATE_INACTIVE)
-            }
-            ACTION_RESUME -> intent.extras?.requireLong(EXTRA_REGION_ID)?.also {
-                Log.d(TAG, "ACTION_RESUME: regionId = $it")
-                works[it]?.region?.setDownloadState(OfflineRegion.STATE_ACTIVE)
             }
         }
 
         return START_STICKY
     }
 
-    private fun startWork(work: OfflineWork) {
-        works[work.region.id] = work
+    private fun startJob(job: OfflineDownloadJob) {
+        jobs[job.region.id] = job
 
-        OfflineDownloadReceiver.dispatchCreate(applicationContext, work.download)
+        OfflineDownloadReceiver.dispatchCreate(applicationContext, job.download)
 
         // Setup observer
-        work.region.setDeliverInactiveMessages(true)
-        work.region.setObserver(object : OfflineRegion.OfflineRegionObserver {
+        job.region.setObserver(object : OfflineRegion.OfflineRegionObserver {
             override fun onStatusChanged(status: OfflineRegionStatus?) {
                 when {
                     status == null -> return
                     status.isComplete -> {
-                        Log.d(TAG, "onStatusChanged[isComplete]: regionId = ${work.region.id}")
-                        work.region.setObserver(null)
-                        work.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
-                        work.updateDownload(status)
-                        OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, work.download)
-                        finishWork(work.region.id)
-                    }
-                    status.downloadState == OfflineRegion.STATE_INACTIVE -> {
-                        Log.d(TAG, "onStatusChanged[isInactive]: regionId = ${work.region.id}")
-                        if (works.containsKey(work.region.id)) {
-                            work.updateDownload(status)
-                            notificationManager.notify(work.region.id.toInt(), work.getNotificationPause())
-                            OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, work.download)
-                        }
+                        job.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
+                        job.region.setObserver(null)
+                        job.updateDownload(status)
+                        OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, job.download)
+                        finishJob(job.region.id)
                     }
                     else -> {
-                        Log.d(TAG, "onStatusChanged[isActive]: regionId = ${work.region.id}")
-                        if (works.containsKey(work.region.id)) {
-                            val oldPercentage = work.download.getPercentage()
-                            val newPercentage = OfflineDownload.getPercentage(status.completedResourceCount, status.requiredResourceCount)
-                            if (newPercentage >= (oldPercentage + 2)) {
-                                work.updateDownload(status)
-                                notificationManager.notify(work.region.id.toInt(), work.getNotificationResume())
-                                OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, work.download)
-                            }
+                        val oldPercentage = job.download.getPercentage()
+                        val newPercentage = OfflineDownload.getPercentage(status.completedResourceCount, status.requiredResourceCount)
+                        if (newPercentage >= (oldPercentage + 2)) {
+                            job.updateDownload(status)
+                            notificationManager.notify(job.region.id.toInt(), job.getNotificationDownload())
+                            OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, job.download)
                         }
                     }
                 }
             }
 
             override fun onError(error: OfflineRegionError?) {
-                OfflineDownloadReceiver.dispatchObserverError(applicationContext, work.download, error?.reason, error?.message)
-                finishWork(work.region.id)
+                OfflineDownloadReceiver.dispatchObserverError(applicationContext, job.download, error?.reason, error?.message)
+                finishJob(job.region.id)
             }
 
             override fun mapboxTileCountLimitExceeded(limit: Long) {
-                OfflineDownloadReceiver.dispatchTileCountLimitExceeded(applicationContext, work.download, limit)
-                finishWork(work.region.id)
+                OfflineDownloadReceiver.dispatchTileCountLimitExceeded(applicationContext, job.download, limit)
+                finishJob(job.region.id)
             }
         })
 
         // Start download
-        work.region.setDownloadState(OfflineRegion.STATE_ACTIVE)
+        job.region.setDownloadState(OfflineRegion.STATE_ACTIVE)
 
         // Start foreground service
-        startForeground(work.region.id.toInt(), work.getNotificationResume())
+        startForeground(job.region.id.toInt(), job.getNotificationDownload())
     }
 
-    private fun finishWork(id: Long) {
-        val removedWork = works.remove(id)
-        if (removedWork != null) {
+    private fun finishJob(id: Long) {
+        val job = jobs.remove(id)
+        if (job != null) {
             notificationManager.cancel(id.toInt())
-            removedWork.snapshotter?.cancel()
+            job.snapshotter?.cancel()
         }
-        if (works.isEmpty()) {
+        if (jobs.isEmpty()) {
             stopForeground(false)
             stopSelf()
         }
