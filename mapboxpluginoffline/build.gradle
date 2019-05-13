@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka-android'
 
 File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
@@ -19,6 +20,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         archivesBaseName = "$archivesBaseName-$versionName"
     }
+    dokka {
+        outputFormat = 'html'
+        outputDirectory = "$buildDir/javadoc"
+    }
     buildTypes {
         debug {
             buildConfigField('String', 'MAPBOX_ACCESS_TOKEN', '"' + secretProps.getProperty('mapbox.accessToken', '') + '"' )
@@ -27,15 +32,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-}
-
-buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.9.1'
     }
 }
 
