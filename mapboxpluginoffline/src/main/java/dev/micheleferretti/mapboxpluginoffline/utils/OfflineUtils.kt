@@ -1,8 +1,6 @@
 package dev.micheleferretti.mapboxpluginoffline.utils
 
 import android.util.Log
-import com.mapbox.mapboxsdk.camera.CameraPosition
-import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 import org.json.JSONObject
 import java.lang.Exception
 
@@ -25,7 +23,4 @@ object OfflineUtils {
         Log.e(TAG, "regionName: conversion from ByteArray to String failed", e)
         null
     }
-
-    fun getCameraPosition(definition: OfflineRegionDefinition) =
-        CameraPosition.Builder().target(definition.bounds.center).zoom(definition.minZoom).build()
 }

@@ -1,6 +1,7 @@
 package dev.micheleferretti.mapboxpluginoffline.utils
 
 import android.os.Bundle
+import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 
 fun Bundle.requireBoolean(key: String): Boolean {
@@ -20,3 +21,6 @@ fun OfflineRegionDefinition.convertToString() = "OfflineRegionDefinition(" +
         "maxZoom=$maxZoom, " +
         "bounds=$bounds" +
         ")"
+
+fun OfflineRegionDefinition.getCameraPosition() =
+    CameraPosition.Builder().target(bounds.center).zoom(minZoom).build()
