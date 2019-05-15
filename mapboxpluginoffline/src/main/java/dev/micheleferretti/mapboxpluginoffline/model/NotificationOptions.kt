@@ -5,6 +5,19 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import dev.micheleferretti.mapboxpluginoffline.R
 
+/**
+ * This model represents the options for the notification shown by
+ * the [OfflineService][dev.micheleferretti.mapboxpluginoffline.OfflineService].
+ *
+ * @property smallIconRes `@DrawableRes` id of the notification small icon.
+ * @property contentTitleRes `@StringRes` id of the notification content title.
+ * @property downloadContentTextRes `@StringRes` id of the notification content text, shown during download.
+ * @property cancelContentTextRes `@StringRes` id of the notification content text, shown during cancellation.
+ * @property cancelActionTextRes `@StringRes` id of the notification action text for download cancellation.
+ * @property requestMapSnapshot Whether or not to add a map snapshot of the region as the notification large icon.
+ * @property returnActivity The activity to start on notification tap.
+ * @constructor Creates a `NotificationOptions` with the given values.
+ */
 class NotificationOptions @JvmOverloads constructor(
     @DrawableRes val smallIconRes: Int = DEFAULT_SMALL_ICON_RES,
     @StringRes val contentTitleRes: Int = DEFAULT_CONTENT_TITLE_RES,
@@ -31,19 +44,34 @@ class NotificationOptions @JvmOverloads constructor(
         private const val EXTRA_REQUEST_MAP_SNAPSHOT = "extra.REQUEST_MAP_SNAPSHOT"
         private const val EXTRA_RETURN_ACTIVITY = "extra.RETURN_ACTIVITY"
 
+        /**
+         * Key for the `OfflineRegion` id bundled with the Intent used to start [returnActivity].
+         */
         const val EXTRA_REGION_ID_FOR_ACTIVITY = "extra.REGION_ID_FOR_ACTIVITY"
 
-        fun fromBundle(b: Bundle) = NotificationOptions(
-            b.getInt(EXTRA_SMALL_ICON_RES, DEFAULT_SMALL_ICON_RES),
-            b.getInt(EXTRA_CONTENT_TITLE_RES, DEFAULT_CONTENT_TITLE_RES),
-            b.getInt(EXTRA_DOWNLOAD_CONTENT_TEXT_RES, DEFAULT_DOWNLOAD_CONTENT_TEXT_RES),
-            b.getInt(EXTRA_CANCEL_CONTENT_TEXT_RES, DEFAULT_CANCEL_CONTENT_TEXT_RES),
-            b.getInt(EXTRA_CANCEL_ACTION_TEXT_RES, DEFAULT_CANCEL_ACTION_TEXT_RES),
-            b.getBoolean(EXTRA_REQUEST_MAP_SNAPSHOT, DEFAULT_REQUEST_MAP_SNAPSHOT),
-            b.getSerializable(EXTRA_RETURN_ACTIVITY) as? Class<*>
+        /**
+         * Creates a `NotificationOptions` from a `Bundle`.
+         * @param bundle the source `Bundle`.
+         * @return a new  `NotificationOptions`.
+         * @see toBundle
+         */
+        @JvmStatic
+        fun fromBundle(bundle: Bundle) = NotificationOptions(
+            bundle.getInt(EXTRA_SMALL_ICON_RES, DEFAULT_SMALL_ICON_RES),
+            bundle.getInt(EXTRA_CONTENT_TITLE_RES, DEFAULT_CONTENT_TITLE_RES),
+            bundle.getInt(EXTRA_DOWNLOAD_CONTENT_TEXT_RES, DEFAULT_DOWNLOAD_CONTENT_TEXT_RES),
+            bundle.getInt(EXTRA_CANCEL_CONTENT_TEXT_RES, DEFAULT_CANCEL_CONTENT_TEXT_RES),
+            bundle.getInt(EXTRA_CANCEL_ACTION_TEXT_RES, DEFAULT_CANCEL_ACTION_TEXT_RES),
+            bundle.getBoolean(EXTRA_REQUEST_MAP_SNAPSHOT, DEFAULT_REQUEST_MAP_SNAPSHOT),
+            bundle.getSerializable(EXTRA_RETURN_ACTIVITY) as? Class<*>
         )
     }
 
+    /**
+     * Creates a `Bundle` from this object.
+     * @return a new `Bundle`.
+     * @see fromBundle
+     */
     fun toBundle() = Bundle().apply {
         putInt(EXTRA_SMALL_ICON_RES, smallIconRes)
         putInt(EXTRA_CONTENT_TITLE_RES, contentTitleRes)
@@ -54,6 +82,10 @@ class NotificationOptions @JvmOverloads constructor(
         putSerializable(EXTRA_RETURN_ACTIVITY, returnActivity)
     }
 
+    /**
+     * Returns a `String` representation of this object.
+     * @return a `String` representation of this object.
+     */
     override fun toString() = "NotificationOptions(" +
             "requestMapSnapshot=$requestMapSnapshot, " +
             "returnActivity=$returnActivity" +

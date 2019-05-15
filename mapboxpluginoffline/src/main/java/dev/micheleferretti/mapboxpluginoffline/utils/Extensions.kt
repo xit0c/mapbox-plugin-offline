@@ -4,14 +4,30 @@ import android.os.Bundle
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 
-fun Bundle.requireBoolean(key: String): Boolean {
-    if (this.containsKey(key)) return this.getBoolean(key) else throw IllegalArgumentException("Required value is missing")
-}
+/**
+ * Returns the value associated with the given key, if exists and is of the desired type. Otherwise throws.
+ *
+ * @param key a String
+ * @return a boolean value
+ * @throws IllegalArgumentException
+ */
+fun Bundle.requireBoolean(key: String): Boolean =
+    this.get(key) as? Boolean ?: throw IllegalArgumentException("Required value is missing or not a Boolean")
 
-fun Bundle.requireLong(key: String): Long {
-    if (this.containsKey(key)) return this.getLong(key) else throw IllegalArgumentException("Required value is missing")
-}
+/**
+ * Returns the value associated with the given key, if exists and is of the desired type. Otherwise throws.
+ *
+ * @param key a String
+ * @return a long value
+ * @throws IllegalArgumentException
+ */
+fun Bundle.requireLong(key: String): Long =
+    this.get(key) as? Long ?: throw IllegalArgumentException("Required value is missing or not a Long")
 
+/**
+ * Returns a `String` representation of this object.
+ * @return a `String` representation of this object.
+ */
 fun OfflineRegionDefinition.convertToString() = "OfflineRegionDefinition(" +
         "styleURL=$styleURL, " +
         "type=$type, " +
@@ -22,5 +38,9 @@ fun OfflineRegionDefinition.convertToString() = "OfflineRegionDefinition(" +
         "bounds=$bounds" +
         ")"
 
+/**
+ * Returns a `CameraPosition` built with this definition data.
+ * @return a `CameraPosition` built with this definition data.
+ */
 fun OfflineRegionDefinition.getCameraPosition() =
     CameraPosition.Builder().target(bounds.center).zoom(minZoom).build()

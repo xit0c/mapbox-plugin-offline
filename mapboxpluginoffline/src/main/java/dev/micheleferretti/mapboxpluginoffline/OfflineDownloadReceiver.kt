@@ -137,7 +137,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     }
 
     open fun onStatusChanged(context: Context, download: OfflineDownload) {
-        if (download.isActive) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
+        if (download.isActive()) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
     }
 
     open fun onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {

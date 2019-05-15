@@ -78,7 +78,7 @@ class OfflineService : Service() {
             ACTION_CANCEL -> intent.extras?.requireLong(EXTRA_REGION_ID)?.also {
                 val job = jobs[it]
                 if (job != null) {
-                    notificationManager.notify(job.region.id.toInt(), job.notificationCancel.build())
+                    notificationManager.notify(job.region.id.toInt(), job.getNotificationCancel())
                     job.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
                     job.region.setObserver(null)
                     job.region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
@@ -112,7 +112,7 @@ class OfflineService : Service() {
                     status.isComplete -> {
                         job.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
                         job.region.setObserver(null)
-                        job.updateDownload(status)
+                        job.download.setStatus(status)
                         OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, job.download)
                         finishJob(job.region.id)
                     }
@@ -120,7 +120,7 @@ class OfflineService : Service() {
                         val oldPercentage = job.download.getPercentage()
                         val newPercentage = OfflineDownload.getPercentage(status.completedResourceCount, status.requiredResourceCount)
                         if (newPercentage >= (oldPercentage + 2)) {
-                            job.updateDownload(status)
+                            job.download.setStatus(status)
                             notificationManager.notify(job.region.id.toInt(), job.getNotificationDownload())
                             OfflineDownloadReceiver.dispatchStatusChanged(applicationContext, job.download)
                         }
@@ -150,7 +150,7 @@ class OfflineService : Service() {
         val job = jobs.remove(id)
         if (job != null) {
             notificationManager.cancel(id.toInt())
-            job.snapshotter?.cancel()
+            job.cancelSnapshotter()
         }
         if (jobs.isEmpty()) {
             stopForeground(false)
