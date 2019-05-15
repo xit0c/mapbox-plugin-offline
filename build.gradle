@@ -2,7 +2,7 @@ buildscript {
     ext {
         androidx_core_version = '1.0.2'
         kotlin_version = '1.3.31'
-        mapbox_version = '7.3.2'
+        mapbox_version = '7.4.0'
     }
     repositories {
         google()
