@@ -16,30 +16,46 @@ import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadJob
 import dev.micheleferretti.mapboxpluginoffline.utils.NotificationUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 
+/**
+ * This `Service` is the core of the library. It manages the downloads, sends notifications
+ * and dispatches events to the [OfflineDownloadReceiver].
+ *
+ * Its [startDownload] and [cancelDownload] static methods are the main entry points for the clients.
+ */
 class OfflineService : Service() {
 
     companion object {
-        const val ACTION_DOWNLOAD = "action.DOWNLOAD"
-        const val ACTION_CANCEL = "action.CANCEL"
+        internal const val ACTION_DOWNLOAD = "action.DOWNLOAD"
+        internal const val ACTION_CANCEL = "action.CANCEL"
 
         private const val EXTRA_REGION_ID = "extra.REGION_ID"
 
+        /**
+         * Starts a new download with the provided options.
+         * @param context Context used to start the service.
+         * @param offlineDownloadOptions Download options.
+         */
         @JvmStatic
         fun startDownload(context: Context, offlineDownloadOptions: OfflineDownloadOptions) {
             context.startService(createIntent(context, ACTION_DOWNLOAD, offlineDownloadOptions.toBundle()))
         }
 
+        /**
+         * Cancels an active download and deletes its region.
+         * @param context Context used to start the service.
+         * @param regionId The download id.
+         */
         @JvmStatic
         fun cancelDownload(context: Context, regionId: Long) {
             context.startService(createIntent(context, ACTION_CANCEL, regionId))
         }
 
         @JvmStatic
-        fun createIntent(context: Context, intentAction: String, regionId: Long) =
+        internal fun createIntent(context: Context, intentAction: String, regionId: Long) =
             createIntent(context, intentAction, Bundle().apply { putLong(EXTRA_REGION_ID, regionId) })
 
         @JvmStatic
-        fun createIntent(context: Context, intentAction: String, intentExtras: Bundle) =
+        internal fun createIntent(context: Context, intentAction: String, intentExtras: Bundle) =
             Intent(context, OfflineService::class.java).apply {
                 action = intentAction
                 putExtras(intentExtras)
@@ -50,12 +66,23 @@ class OfflineService : Service() {
 
     private val jobs = hashMapOf<Long, OfflineDownloadJob>()
 
+    /**
+     * @suppress documentation not needed.
+     */
+    override fun onBind(intent: Intent?): IBinder? = null
+
+    /**
+     * @suppress documentation not needed.
+     */
     override fun onCreate() {
         super.onCreate()
         notificationManager = NotificationManagerCompat.from(applicationContext)
         NotificationUtils.setupNotificationChannel(applicationContext)
     }
 
+    /**
+     * @suppress documentation not needed.
+     */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_DOWNLOAD -> {
@@ -157,6 +184,4 @@ class OfflineService : Service() {
             stopSelf()
         }
     }
-
-    override fun onBind(intent: Intent?): IBinder? = null
 }

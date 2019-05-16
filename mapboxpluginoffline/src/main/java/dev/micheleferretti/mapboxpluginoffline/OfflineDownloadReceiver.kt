@@ -10,9 +10,13 @@ import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
 import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 
+/**
+ * This `BroadcastReceiver` can be used to intercept [OfflineService][dev.micheleferretti.mapboxpluginoffline.OfflineService]
+ * events and monitor active downloads.
+ */
 open class OfflineDownloadReceiver: BroadcastReceiver() {
 
-    companion object {
+    internal companion object {
         const val ACTION_CREATE = "action.CREATE"
         const val ACTION_CREATE_ERROR = "action.CREATE_ERROR"
         const val ACTION_DELETE = "action.DELETE"
@@ -76,8 +80,15 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         }
     }
 
+    /**
+     * Map of current active downloads. This map is cleared when [unregister] is called.
+     */
     val activeDownloads = hashMapOf<Long, OfflineDownload>()
 
+    /**
+     * Registers this receiver to all the actions.
+     * @param context Context used to get the `LocalBroadcastManager` instance.
+     */
     fun register(context: Context) = LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter().apply {
         addAction(ACTION_CREATE)
         addAction(ACTION_CREATE_ERROR)
@@ -88,11 +99,17 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         addAction(ACTION_TILE_COUNT_LIMIT_EXCEEDED)
     })
 
+    /**
+     * Unregisters this receiver and clears the [activeDownloads] map.
+     */
     fun unregister(context: Context) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
         activeDownloads.clear()
     }
 
+    /**
+     * @suppress This is used only as a dispatcher to the other callbacks: documentation not needed.
+     */
     override fun onReceive(context: Context?, intent: Intent?) {
         val ctx = context?.applicationContext ?: return
         when (intent?.action) {
@@ -120,30 +137,70 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         }
     }
 
+    /**
+     * Called when a download is created, see `OfflineManager.CreateOfflineRegionCallback.onCreate()`.
+     * @param context Receiver Context.
+     * @param download The created download.
+     */
     open fun onCreate(context: Context, download: OfflineDownload) {
         activeDownloads[download.regionId] = download
     }
 
+    /**
+     * Called when a download creation fails, see `OfflineManager.CreateOfflineRegionCallback.onError()`.
+     * @param context Receiver Context.
+     * @param options The options used to create the download.
+     * @param error Error message.
+     */
     open fun onCreateError(context: Context, options: OfflineDownloadOptions, error: String?) {
         // no-op
     }
 
+    /**
+     * Called when a download is canceled and the region deleted, see `OfflineRegion.OfflineRegionDeleteCallback.onDelete()`.
+     * @param context Receiver Context.
+     * @param download The canceled and deleted download.
+     */
     open fun onDelete(context: Context, download: OfflineDownload) {
         activeDownloads.remove(download.regionId)
     }
 
+    /**
+     * Called when a download is canceled but the region deletion fails, see `OfflineRegion.OfflineRegionDeleteCallback.onError()`.
+     * @param context Receiver Context.
+     * @param download The canceled but not deleted download.
+     * @param error Error message.
+     */
     open fun onDeleteError(context: Context, download: OfflineDownload, error: String?) {
         activeDownloads.remove(download.regionId)
     }
 
+    /**
+     * Called when a download changes its status, see `OfflineRegion.OfflineRegionObserver.onStatusChanged()`.
+     * @param context Receiver Context.
+     * @param download The observed download.
+     */
     open fun onStatusChanged(context: Context, download: OfflineDownload) {
         if (download.isActive()) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
     }
 
+    /**
+     * Called when a download observer fails, see `OfflineRegion.OfflineRegionObserver.onError()`.
+     * @param context Receiver Context.
+     * @param download The observed download.
+     * @param reason Error reason (see `OfflineRegionError.getReason()`).
+     * @param message Error message (see `OfflineRegionError.getMessage()`).
+     */
     open fun onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {
         activeDownloads.remove(download.regionId)
     }
 
+    /**
+     * Called when a download tile count exceeds `limit`, see `OfflineRegion.OfflineRegionObserver.mapboxTileCountLimitExceeded()`.
+     * @param context Receiver Context.
+     * @param download The observed download.
+     * @param limit Maximum tile count.
+     */
     open fun onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long) {
         activeDownloads.remove(download.regionId)
     }
