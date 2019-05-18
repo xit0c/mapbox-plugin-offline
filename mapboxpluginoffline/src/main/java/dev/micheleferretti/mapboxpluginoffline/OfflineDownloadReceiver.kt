@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import androidx.annotation.CallSuper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
@@ -142,6 +143,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param context Receiver Context.
      * @param download The created download.
      */
+    @CallSuper
     open fun onCreate(context: Context, download: OfflineDownload) {
         activeDownloads[download.regionId] = download
     }
@@ -161,6 +163,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param context Receiver Context.
      * @param download The canceled and deleted download.
      */
+    @CallSuper
     open fun onDelete(context: Context, download: OfflineDownload) {
         activeDownloads.remove(download.regionId)
     }
@@ -171,6 +174,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param download The canceled but not deleted download.
      * @param error Error message.
      */
+    @CallSuper
     open fun onDeleteError(context: Context, download: OfflineDownload, error: String?) {
         activeDownloads.remove(download.regionId)
     }
@@ -180,6 +184,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param context Receiver Context.
      * @param download The observed download.
      */
+    @CallSuper
     open fun onStatusChanged(context: Context, download: OfflineDownload) {
         if (download.isActive()) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
     }
@@ -191,6 +196,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param reason Error reason (see `OfflineRegionError.getReason()`).
      * @param message Error message (see `OfflineRegionError.getMessage()`).
      */
+    @CallSuper
     open fun onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {
         activeDownloads.remove(download.regionId)
     }
@@ -201,6 +207,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param download The observed download.
      * @param limit Maximum tile count.
      */
+    @CallSuper
     open fun onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long) {
         activeDownloads.remove(download.regionId)
     }

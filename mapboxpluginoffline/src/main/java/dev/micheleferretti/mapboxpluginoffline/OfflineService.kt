@@ -17,10 +17,12 @@ import dev.micheleferretti.mapboxpluginoffline.utils.NotificationUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 
 /**
- * This `Service` is the core of the library. It manages the downloads, sends notifications
- * and dispatches events to the [OfflineDownloadReceiver].
+ * This is the core of the plugin. It manages the downloads, shows notifications and dispatches events that
+ * [OfflineDownloadReceiver]s can listen to.
  *
- * Its [startDownload] and [cancelDownload] static methods are the main entry points for the clients.
+ * The static methods [startDownload] and [cancelDownload], as their names suggest, can be used to
+ * start and cancel a download respectively. While executing these actions, the service shows a notification
+ * to make the user aware of what's going on.
  */
 class OfflineService : Service() {
 
@@ -43,7 +45,7 @@ class OfflineService : Service() {
         /**
          * Cancels an active download and deletes its region.
          * @param context Context used to start the service.
-         * @param regionId The download id.
+         * @param regionId The download region id.
          */
         @JvmStatic
         fun cancelDownload(context: Context, regionId: Long) {

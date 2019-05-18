@@ -23,6 +23,10 @@ android {
     dokka {
         outputFormat = 'html'
         outputDirectory = "$buildDir/javadoc"
+        externalDocumentationLink {
+            url = new URL("https://developer.android.com/reference/")
+            packageListUrl = new URL("https://developer.android.com/reference/androidx/package-list")
+        }
     }
     buildTypes {
         debug {

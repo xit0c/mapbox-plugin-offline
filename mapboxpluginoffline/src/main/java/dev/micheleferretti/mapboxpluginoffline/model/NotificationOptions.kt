@@ -9,11 +9,11 @@ import dev.micheleferretti.mapboxpluginoffline.R
  * This model represents the options for the notification shown by
  * the [OfflineService][dev.micheleferretti.mapboxpluginoffline.OfflineService].
  *
- * @property smallIconRes `@DrawableRes` id of the notification small icon.
- * @property contentTitleRes `@StringRes` id of the notification content title.
- * @property downloadContentTextRes `@StringRes` id of the notification content text, shown during download.
- * @property cancelContentTextRes `@StringRes` id of the notification content text, shown during cancellation.
- * @property cancelActionTextRes `@StringRes` id of the notification action text for download cancellation.
+ * @property smallIconRes [DrawableRes] id of the notification small icon.
+ * @property contentTitleRes [StringRes] id of the notification content title.
+ * @property downloadContentTextRes [StringRes] id of the notification content text, shown during download.
+ * @property cancelContentTextRes [StringRes] id of the notification content text, shown during cancellation.
+ * @property cancelActionTextRes [StringRes] id of the notification action text for download cancellation.
  * @property requestMapSnapshot Whether or not to add a map snapshot of the region as the notification large icon.
  * @property returnActivity The activity to start on notification tap.
  * @constructor Creates a `NotificationOptions` with the given values.
@@ -45,7 +45,7 @@ class NotificationOptions @JvmOverloads constructor(
         private const val EXTRA_RETURN_ACTIVITY = "extra.RETURN_ACTIVITY"
 
         /**
-         * Key for the `OfflineRegion` id bundled with the Intent used to start [returnActivity].
+         * Key for the `OfflineRegion` id put as an extra of the Intent used to start [returnActivity].
          * @see dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils.getRegionIdFromIntent
          */
         const val EXTRA_REGION_ID_FOR_ACTIVITY = "extra.REGION_ID_FOR_ACTIVITY"
