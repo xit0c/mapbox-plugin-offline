@@ -1,0 +1,9 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:dev.micheleferretti.mapboxpluginoffline.utils$convertToString(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition)dev.micheleferretti.mapboxpluginoffline.utils/com.mapbox.mapboxsdk.offline.-offline-region-definition/convert-to-string.html
+$dokka.location:dev.micheleferretti.mapboxpluginoffline.utils$getCameraPosition(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition)dev.micheleferretti.mapboxpluginoffline.utils/com.mapbox.mapboxsdk.offline.-offline-region-definition/get-camera-position.html
+$dokka.location:dev.micheleferretti.mapboxpluginoffline.utils$requireBoolean(android.os.Bundle, kotlin.String)dev.micheleferretti.mapboxpluginoffline.utils/android.os.-bundle/require-boolean.html
+$dokka.location:dev.micheleferretti.mapboxpluginoffline.utils$requireLong(android.os.Bundle, kotlin.String)dev.micheleferretti.mapboxpluginoffline.utils/android.os.-bundle/require-long.html
+dev.micheleferretti.mapboxpluginoffline
+dev.micheleferretti.mapboxpluginoffline.model
+dev.micheleferretti.mapboxpluginoffline.utils

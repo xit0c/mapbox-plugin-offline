@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NotificationOptions - mapboxpluginoffline</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mapboxpluginoffline</a>&nbsp;/&nbsp;<a href="../index.html">dev.micheleferretti.mapboxpluginoffline.model</a>&nbsp;/&nbsp;<a href="./index.html">NotificationOptions</a><br/>
+<br/>
+<h1>NotificationOptions</h1>
+<code><span class="keyword">class </span><span class="identifier">NotificationOptions</span></code>
+<p>This model represents the options for the notification shown by
+the <a href="../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.html">OfflineService</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">NotificationOptions</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/smallIconRes">smallIconRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_SMALL_ICON_RES<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/contentTitleRes">contentTitleRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_CONTENT_TITLE_RES<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/downloadContentTextRes">downloadContentTextRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_DOWNLOAD_CONTENT_TEXT_RES<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/cancelContentTextRes">cancelContentTextRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_CANCEL_CONTENT_TEXT_RES<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/cancelActionTextRes">cancelActionTextRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_CANCEL_ACTION_TEXT_RES<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/requestMapSnapshot">requestMapSnapshot</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_REQUEST_MAP_SNAPSHOT<span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions$<init>(kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Int, kotlin.Boolean, java.lang.Class((kotlin.Any)))/returnActivity">returnActivity</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;DEFAULT_RETURN_ACTIVITY<span class="symbol">)</span></code>
+<p>Creates a <code>NotificationOptions</code> with the given values.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cancel-action-text-res.html">cancelActionTextRes</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">cancelActionTextRes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p><a href="https://developer.android.com/reference/androidx/annotation/StringRes.html">StringRes</a> id of the notification action text for download cancellation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="cancel-content-text-res.html">cancelContentTextRes</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">cancelContentTextRes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p><a href="https://developer.android.com/reference/androidx/annotation/StringRes.html">StringRes</a> id of the notification content text, shown during cancellation.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="content-title-res.html">contentTitleRes</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">contentTitleRes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p><a href="https://developer.android.com/reference/androidx/annotation/StringRes.html">StringRes</a> id of the notification content title.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="download-content-text-res.html">downloadContentTextRes</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">downloadContentTextRes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p><a href="https://developer.android.com/reference/androidx/annotation/StringRes.html">StringRes</a> id of the notification content text, shown during download.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="request-map-snapshot.html">requestMapSnapshot</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">requestMapSnapshot</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Whether or not to add a map snapshot of the region as the notification large icon.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="return-activity.html">returnActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">returnActivity</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>The activity to start on notification tap.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="small-icon-res.html">smallIconRes</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">smallIconRes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p><a href="https://developer.android.com/reference/androidx/annotation/DrawableRes.html">DrawableRes</a> id of the notification small icon.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="to-bundle.html">toBundle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toBundle</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a></code>
+<p>Creates a <code>Bundle</code> from this object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns a <code>String</code> representation of this object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-e-x-t-r-a_-r-e-g-i-o-n_-i-d_-f-o-r_-a-c-t-i-v-i-t-y.html">EXTRA_REGION_ID_FOR_ACTIVITY</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">EXTRA_REGION_ID_FOR_ACTIVITY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Key for the <code>OfflineRegion</code> id put as an extra of the Intent used to start <a href="return-activity.html">returnActivity</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from-bundle.html">fromBundle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromBundle</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions.Companion$fromBundle(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">NotificationOptions</span></a></code>
+<p>Creates a <code>NotificationOptions</code> from a <code>Bundle</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

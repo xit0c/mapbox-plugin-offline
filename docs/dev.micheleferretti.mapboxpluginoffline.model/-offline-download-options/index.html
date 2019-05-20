@@ -1,0 +1,111 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>OfflineDownloadOptions - mapboxpluginoffline</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mapboxpluginoffline</a>&nbsp;/&nbsp;<a href="../index.html">dev.micheleferretti.mapboxpluginoffline.model</a>&nbsp;/&nbsp;<a href="./index.html">OfflineDownloadOptions</a><br/>
+<br/>
+<h1>OfflineDownloadOptions</h1>
+<code><span class="keyword">class </span><span class="identifier">OfflineDownloadOptions</span></code>
+<p>This model represents the options for the download managed by
+the <a href="../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.html">OfflineService</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">OfflineDownloadOptions</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/definition">definition</span><span class="symbol">:</span>&nbsp;<span class="identifier">OfflineRegionDefinition</span><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/notificationOptions">notificationOptions</span><span class="symbol">:</span>&nbsp;<a href="../-notification-options/index.html"><span class="identifier">NotificationOptions</span></a><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/regionName">regionName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Creates a <code>OfflineDownloadOptions</code> with the given values,
+converting <a href="-init-.html#dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/regionName">regionName</a> to a <code>ByteArray</code> with <a href="../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.html">OfflineUtils.convertRegionName</a>.</p>
+<code><span class="identifier">OfflineDownloadOptions</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.ByteArray)/definition">definition</span><span class="symbol">:</span>&nbsp;<span class="identifier">OfflineRegionDefinition</span><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.ByteArray)/notificationOptions">notificationOptions</span><span class="symbol">:</span>&nbsp;<a href="../-notification-options/index.html"><span class="identifier">NotificationOptions</span></a><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.ByteArray)/metadata">metadata</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">?</span><span class="symbol">)</span></code>
+<p>Creates a <code>OfflineDownloadOptions</code> with the given values.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="definition.html">definition</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">definition</span><span class="symbol">: </span><span class="identifier">OfflineRegionDefinition</span></code>
+<p>Region definition that will be used in <code>OfflineManager.createOfflineRegion()</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="metadata.html">metadata</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">metadata</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">?</span></code>
+<p>Region metadata that will be used in <code>OfflineManager.createOfflineRegion()</code>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="notification-options.html">notificationOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">notificationOptions</span><span class="symbol">: </span><a href="../-notification-options/index.html"><span class="identifier">NotificationOptions</span></a></code>
+<p>Options that will be used for the notification shown by
+the <a href="../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.html">OfflineService</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-region-name.html">getRegionName</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getRegionName</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">?</span></code>
+<p>Returns the region name converting <a href="metadata.html">metadata</a> with <a href="../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.html">OfflineUtils.convertRegionName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-bundle.html">toBundle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toBundle</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a></code>
+<p>Creates a <code>Bundle</code> from this object.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="to-string.html">toString</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns a <code>String</code> representation of this object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from-bundle.html">fromBundle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">fromBundle</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions.Companion$fromBundle(android.os.Bundle)/bundle">bundle</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">OfflineDownloadOptions</span></a></code>
+<p>Creates a <code>OfflineDownloadOptions</code> from a <code>Bundle</code>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

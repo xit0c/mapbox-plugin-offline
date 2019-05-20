@@ -107,7 +107,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     })
 
     /**
-     * Unregisters this receiver and clears the [activeDownloads] map.
+     * Unregisters this receiver and clears the internal map returned by [getActiveDownloads].
      */
     fun unregister(context: Context) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(this)

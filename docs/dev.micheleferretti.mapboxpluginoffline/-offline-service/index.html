@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>OfflineService - mapboxpluginoffline</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">mapboxpluginoffline</a>&nbsp;/&nbsp;<a href="../index.html">dev.micheleferretti.mapboxpluginoffline</a>&nbsp;/&nbsp;<a href="./index.html">OfflineService</a><br/>
+<br/>
+<h1>OfflineService</h1>
+<code><span class="keyword">class </span><span class="identifier">OfflineService</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/app/Service.html"><span class="identifier">Service</span></a></code>
+<p>This is the core of the plugin. It manages the downloads, shows notifications and dispatches events that
+<a href="../-offline-download-receiver/index.html">OfflineDownloadReceiver</a>s can listen to.</p>
+<p>The static methods <a href="start-download.html">startDownload</a> and <a href="cancel-download.html">cancelDownload</a>, as their names suggest, can be used to
+start and cancel a download respectively. While executing these actions, the service shows a notification
+to make the user aware of what's going on.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">OfflineService</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>This is the core of the plugin. It manages the downloads, shows notifications and dispatches events that
+<a href="../-offline-download-receiver/index.html">OfflineDownloadReceiver</a>s can listen to.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="cancel-download.html">cancelDownload</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">cancelDownload</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.OfflineService.Companion$cancelDownload(android.content.Context, kotlin.Long)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.OfflineService.Companion$cancelDownload(android.content.Context, kotlin.Long)/regionId">regionId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Cancels an active download and deletes its region.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="start-download.html">startDownload</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">startDownload</span><span class="symbol">(</span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.OfflineService.Companion$startDownload(android.content.Context, dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="dev.micheleferretti.mapboxpluginoffline.OfflineService.Companion$startDownload(android.content.Context, dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions)/offlineDownloadOptions">offlineDownloadOptions</span><span class="symbol">:</span>&nbsp;<a href="../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download-options/index.html"><span class="identifier">OfflineDownloadOptions</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Starts a new download with the provided options.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
