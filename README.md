@@ -5,7 +5,7 @@ An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugi
 
 This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
 ```gradle
-implementation 'dev.micheleferretti:mapbox-plugin-offline:0.1.0'
+implementation 'dev.micheleferretti:mapbox-plugin-offline:0.2.0'
 ```
 
 ## Usage
@@ -58,22 +58,33 @@ OfflineService.cancelDownload(context, regionId)
 
 ### Listen to events
 
-`OfflineDownloadReceiver` handles all the events the `OfflineService` send. Extend it and override only the methods/events you need, then register it with `register()` to start listening.
+`OfflineDownloadReceiver` handles all the events the `OfflineService` send.
+
+Its private `activeDownloads` property, accessible via `getActiveDownloads()`, is a `regionId to OfflineDownload` map that gets updated by the receiver (once registered) when certain events occur and is cleared when `unregister()` is called.
+
+Extend `OfflineDownloadReceiver` and override only the methods/events you need, then register it with `register()` to start listening.
 
 Available methods/events list:
 * `onCreate(context: Context, download: OfflineDownload)`<br>
 Download created.
+
 * `onCreateError(context: Context, options: OfflineDownloadOptions, error: String?)`<br>
 Download creation failed.
+
 * `onDelete(context: Context, download: OfflineDownload)`<br>
 Download canceled and region deleted.
+
 * `onDeleteError(context: Context, download: OfflineDownload, error: String?)`<br>
 Download canceled but region deletion failed.
+
 * `onStatusChanged(context: Context, download: OfflineDownload)`<br>
 Download status changed (progression or completion).
+
 * `onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?)`<br>
 Download observer failure.
+
 * `onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long)`<br>
 Download tile count exceeded.
 
-Moreover, with `getActiveDownloads()` method you get a map of current active downloads (cleared when `unregister()` is called).
+* `onActiveDownloadsChanged(context: Context, activeDownloads: Map<Long, OfflineDownload>)`<br>
+The active downloads map has changed because one of the events above has occurred (except `onCreateError()`, since in that case the download never became active). Override this method when all you want to do is observe the active downloads, without knowing the reasons they change.
