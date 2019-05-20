@@ -1,9 +1,12 @@
 # mapbox-plugin-offline
-An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-offline), written in [Kotlin](https://kotlinlang.org/).
+An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-offline) for Android, written in [Kotlin](https://kotlinlang.org/).
 
 ## Getting Started
 
-To do.
+This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
+```gradle
+implementation 'dev.micheleferretti:mapbox-plugin-offline:0.1.0'
+```
 
 ## Usage
 
