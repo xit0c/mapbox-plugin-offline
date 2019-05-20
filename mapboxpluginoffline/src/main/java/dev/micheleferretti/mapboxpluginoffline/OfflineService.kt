@@ -27,10 +27,12 @@ import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 class OfflineService : Service() {
 
     companion object {
-        internal const val ACTION_DOWNLOAD = "action.DOWNLOAD"
-        internal const val ACTION_CANCEL = "action.CANCEL"
+        private const val CONSTANT_PREFIX   = "dev.micheleferretti.mapboxpluginoffline.OfflineService"
 
-        private const val EXTRA_REGION_ID = "extra.REGION_ID"
+        internal const val ACTION_DOWNLOAD  = "$CONSTANT_PREFIX.action.DOWNLOAD"
+        internal const val ACTION_CANCEL    = "$CONSTANT_PREFIX.action.CANCEL"
+
+        private const val EXTRA_REGION_ID   = "$CONSTANT_PREFIX.extra.REGION_ID"
 
         /**
          * Starts a new download with the provided options.

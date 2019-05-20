@@ -2,7 +2,7 @@
 
 # cancelDownload
 
-`@JvmStatic fun cancelDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/OfflineService.kt#L51)
+`@JvmStatic fun cancelDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/OfflineService.kt#L53)
 
 Cancels an active download and deletes its region.
 

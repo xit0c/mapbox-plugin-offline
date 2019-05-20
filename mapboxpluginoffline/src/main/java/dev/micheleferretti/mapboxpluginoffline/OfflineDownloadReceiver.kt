@@ -18,16 +18,18 @@ import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 open class OfflineDownloadReceiver: BroadcastReceiver() {
 
     internal companion object {
-        const val ACTION_CREATE = "action.CREATE"
-        const val ACTION_CREATE_ERROR = "action.CREATE_ERROR"
-        const val ACTION_DELETE = "action.DELETE"
-        const val ACTION_DELETE_ERROR = "action.DELETE_ERROR"
-        const val ACTION_STATUS_CHANGED = "action.STATUS_CHANGED"
-        const val ACTION_OBSERVER_ERROR = "action.OBSERVER_ERROR"
-        const val ACTION_TILE_COUNT_LIMIT_EXCEEDED = "action.TILE_COUNT_LIMIT_EXCEEDED"
+        private const val CONSTANT_PREFIX                   = "dev.micheleferretti.mapboxpluginoffline.OfflineDownloadReceiver"
 
-        private const val EXTRA_1 = "extra.1"
-        private const val EXTRA_2 = "extra.2"
+        private const val ACTION_CREATE                     = "$CONSTANT_PREFIX.action.CREATE"
+        private const val ACTION_CREATE_ERROR               = "$CONSTANT_PREFIX.action.CREATE_ERROR"
+        private const val ACTION_DELETE                     = "$CONSTANT_PREFIX.action.DELETE"
+        private const val ACTION_DELETE_ERROR               = "$CONSTANT_PREFIX.action.DELETE_ERROR"
+        private const val ACTION_STATUS_CHANGED             = "$CONSTANT_PREFIX.action.STATUS_CHANGED"
+        private const val ACTION_OBSERVER_ERROR             = "$CONSTANT_PREFIX.action.OBSERVER_ERROR"
+        private const val ACTION_TILE_COUNT_LIMIT_EXCEEDED  = "$CONSTANT_PREFIX.action.TILE_COUNT_LIMIT_EXCEEDED"
+
+        private const val EXTRA_1                           = "$CONSTANT_PREFIX.extra.1"
+        private const val EXTRA_2                           = "$CONSTANT_PREFIX.extra.2"
 
         @JvmStatic
         fun dispatchCreate(context: Context, download: OfflineDownload) {
@@ -85,6 +87,25 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * Map of current active downloads. This map is cleared when [unregister] is called.
      */
     private val activeDownloads = hashMapOf<Long, OfflineDownload>()
+
+    /**
+     * Put `download` in `activeDownloads` map.
+     * @param context Receiver Context.
+     * @param download The active download.
+     */
+    private fun putActiveDownload(context: Context, download: OfflineDownload) {
+        activeDownloads[download.regionId] = download
+        onActiveDownloadsChanged(context, activeDownloads)
+    }
+
+    /**
+     * Remove `download` from `activeDownloads` map.
+     * @param context Receiver Context.
+     * @param download The inactive download.
+     */
+    private fun removeActiveDownload(context: Context, download: OfflineDownload) {
+        if (activeDownloads.remove(download.regionId) != null) onActiveDownloadsChanged(context, activeDownloads)
+    }
 
     /**
      * Returns a map of current active downloads.
@@ -152,7 +173,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onCreate(context: Context, download: OfflineDownload) {
-        activeDownloads[download.regionId] = download
+        putActiveDownload(context, download)
     }
 
     /**
@@ -172,7 +193,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onDelete(context: Context, download: OfflineDownload) {
-        activeDownloads.remove(download.regionId)
+        removeActiveDownload(context, download)
     }
 
     /**
@@ -183,7 +204,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onDeleteError(context: Context, download: OfflineDownload, error: String?) {
-        activeDownloads.remove(download.regionId)
+        removeActiveDownload(context, download)
     }
 
     /**
@@ -193,7 +214,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onStatusChanged(context: Context, download: OfflineDownload) {
-        if (download.isActive()) activeDownloads[download.regionId] = download else activeDownloads.remove(download.regionId)
+        if (download.isActive()) putActiveDownload(context, download) else removeActiveDownload(context, download)
     }
 
     /**
@@ -205,7 +226,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {
-        activeDownloads.remove(download.regionId)
+        removeActiveDownload(context, download)
     }
 
     /**
@@ -216,6 +237,16 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      */
     @CallSuper
     open fun onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long) {
-        activeDownloads.remove(download.regionId)
+        removeActiveDownload(context, download)
+    }
+
+    /**
+     * Called when `activeDownloads` map changes. Override this to respond to generic changes.
+     * @param context Receiver Context.
+     * @param activeDownloads The active downloads map.
+     * @see getActiveDownloads
+     */
+    open fun onActiveDownloadsChanged(context: Context, activeDownloads: Map<Long, OfflineDownload>) {
+        // no-op
     }
 }
