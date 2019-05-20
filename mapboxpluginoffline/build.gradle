@@ -9,6 +9,8 @@ Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
 String libVersionName = '0.1.0'
+String javadocDir = "$buildDir/javadoc"
+String docsDir = "$rootDir/docs"
 
 android {
     compileSdkVersion 28
@@ -21,8 +23,13 @@ android {
         archivesBaseName = "$archivesBaseName-$versionName"
     }
     dokka {
-        outputFormat = 'html'
-        outputDirectory = "$buildDir/javadoc"
+        outputFormat = 'gfm'
+        outputDirectory = javadocDir
+        linkMapping {
+            dir = "./"
+            url = "https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/"
+            suffix = "#L" // suffix used to append the line number to the URL (#L for GitHub)
+        }
         externalDocumentationLink {
             url = new URL("https://developer.android.com/reference/")
             packageListUrl = new URL("https://developer.android.com/reference/androidx/package-list")
@@ -68,4 +75,16 @@ publish {
     bintrayUser = secretProps.getProperty('bintray.user', '')
     bintrayKey = secretProps.getProperty('bintray.key', '')
     dryRun = false
+}
+
+task cleanDocs(type: Delete, group: 'Documentation') {
+    println "Cleaning up $javadocDir and $docsDir"
+    delete javadocDir
+    delete docsDir
+}
+
+task copyDocs(type: Copy, group: 'Documentation') {
+    println "Copying files from $javadocDir/$project.name to $docsDir"
+    from "$javadocDir/$project.name"
+    into docsDir
 }

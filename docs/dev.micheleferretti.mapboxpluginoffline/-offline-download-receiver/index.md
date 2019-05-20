@@ -1,0 +1,29 @@
+[mapboxpluginoffline](../../index.md) / [dev.micheleferretti.mapboxpluginoffline](../index.md) / [OfflineDownloadReceiver](./index.md)
+
+# OfflineDownloadReceiver
+
+`open class OfflineDownloadReceiver : `[`BroadcastReceiver`](https://developer.android.com/reference/android/content/BroadcastReceiver.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/OfflineDownloadReceiver.kt#L18)
+
+This `BroadcastReceiver` can be used to intercept [OfflineService](../-offline-service/index.md)
+events and monitor active downloads.
+
+### Constructors
+
+| Name | Summary |
+|---|---|
+| [&lt;init&gt;](-init-.md) | `OfflineDownloadReceiver()`<br>This `BroadcastReceiver` can be used to intercept [OfflineService](../-offline-service/index.md) events and monitor active downloads. |
+
+### Functions
+
+| Name | Summary |
+|---|---|
+| [getActiveDownloads](get-active-downloads.md) | `fun getActiveDownloads(): `[`Map`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html)`<`[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`>`<br>Returns a map of current active downloads. |
+| [onCreate](on-create.md) | `open fun onCreate(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download is created, see `OfflineManager.CreateOfflineRegionCallback.onCreate()`. |
+| [onCreateError](on-create-error.md) | `open fun onCreateError(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, options: `[`OfflineDownloadOptions`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download-options/index.md)`, error: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download creation fails, see `OfflineManager.CreateOfflineRegionCallback.onError()`. |
+| [onDelete](on-delete.md) | `open fun onDelete(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download is canceled and the region deleted, see `OfflineRegion.OfflineRegionDeleteCallback.onDelete()`. |
+| [onDeleteError](on-delete-error.md) | `open fun onDeleteError(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`, error: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download is canceled but the region deletion fails, see `OfflineRegion.OfflineRegionDeleteCallback.onError()`. |
+| [onObserverError](on-observer-error.md) | `open fun onObserverError(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`, reason: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?, message: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download observer fails, see `OfflineRegion.OfflineRegionObserver.onError()`. |
+| [onStatusChanged](on-status-changed.md) | `open fun onStatusChanged(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download changes its status, see `OfflineRegion.OfflineRegionObserver.onStatusChanged()`. |
+| [onTileCountLimitExceeded](on-tile-count-limit-exceeded.md) | `open fun onTileCountLimitExceeded(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, download: `[`OfflineDownload`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download/index.md)`, limit: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Called when a download tile count exceeds `limit`, see `OfflineRegion.OfflineRegionObserver.mapboxTileCountLimitExceeded()`. |
+| [register](register.md) | `fun register(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Registers this receiver to all the actions. |
+| [unregister](unregister.md) | `fun unregister(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Unregisters this receiver and clears the internal map returned by [getActiveDownloads](get-active-downloads.md). |
