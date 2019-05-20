@@ -8,7 +8,7 @@ File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
-String libVersionName = "0.0.1"
+String libVersionName = '0.1.0'
 
 android {
     compileSdkVersion 28
@@ -63,9 +63,9 @@ publish {
     groupId = 'dev.micheleferretti'
     artifactId = 'mapbox-plugin-offline'
     publishVersion = libVersionName
-    desc = 'An alternative version of Mapbox offline plugin, written in Kotlin.'
+    desc = 'An alternative to Mapbox offline plugin, written in Kotlin.'
     website = 'https://github.com/xit0c/mapbox-plugin-offline'
     bintrayUser = secretProps.getProperty('bintray.user', '')
     bintrayKey = secretProps.getProperty('bintray.key', '')
-    dryRun = true
+    dryRun = false
 }
