@@ -46,8 +46,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.active_downloads_btn -> {
-                logAdapter.addLog(LogMessage.Plain("onClick", "activeDownloads = ${receiver.activeDownloads}"))
-                Toast.makeText(v.context, "Count: ${receiver.activeDownloads.size}", Toast.LENGTH_SHORT).show()
+                logAdapter.addLog(LogMessage.Plain("onClick", "activeDownloads = ${receiver.getActiveDownloads()}"))
+                Toast.makeText(v.context, "Count: ${receiver.getActiveDownloads().size}", Toast.LENGTH_SHORT).show()
             }
             R.id.download_btn -> {
                 map?.getMapAsync {

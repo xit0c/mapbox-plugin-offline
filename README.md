@@ -55,7 +55,9 @@ OfflineService.cancelDownload(context, regionId)
 
 ### Listen to events
 
-Extend `OfflineDownloadReceiver` and override only the methods (events) you need:
+`OfflineDownloadReceiver` handles all the events the `OfflineService` send. Extend it and override only the methods/events you need, then register it with `register()` to start listening.
+
+Available methods/events list:
 * `onCreate(context: Context, download: OfflineDownload)`<br>
 Download created.
 * `onCreateError(context: Context, options: OfflineDownloadOptions, error: String?)`<br>
@@ -71,5 +73,4 @@ Download observer failure.
 * `onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long)`<br>
 Download tile count exceeded.
 
-> Here's a tip!<br>
-`OfflineDownloadReceiver.activeDownloads` is a map of active downloads managed by the receiver and cleared when `unregister()` is called.
+Moreover, with `getActiveDownloads()` method you get a map of current active downloads (cleared when `unregister()` is called).

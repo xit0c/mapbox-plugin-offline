@@ -84,7 +84,13 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     /**
      * Map of current active downloads. This map is cleared when [unregister] is called.
      */
-    val activeDownloads = hashMapOf<Long, OfflineDownload>()
+    private val activeDownloads = hashMapOf<Long, OfflineDownload>()
+
+    /**
+     * Returns a map of current active downloads.
+     * @return a map of current active downloads.
+     */
+    fun getActiveDownloads(): Map<Long, OfflineDownload> = activeDownloads
 
     /**
      * Registers this receiver to all the actions.
@@ -111,6 +117,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     /**
      * @suppress This is used only as a dispatcher to the other callbacks: documentation not needed.
      */
+    @CallSuper
     override fun onReceive(context: Context?, intent: Intent?) {
         val ctx = context?.applicationContext ?: return
         when (intent?.action) {
