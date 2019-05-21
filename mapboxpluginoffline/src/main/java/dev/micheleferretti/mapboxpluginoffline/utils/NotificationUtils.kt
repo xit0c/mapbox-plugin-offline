@@ -42,17 +42,20 @@ internal object NotificationUtils {
      * @return a base `NotificationCompat.Builder` with cancel and download notifications common settings.
      */
     fun baseNotificationBuilder(context: Context, notificationOptions: NotificationOptions, regionId: Long): NotificationCompat.Builder =
-        NotificationCompat.Builder(context, CHANNEL_ID)
-            .setSmallIcon(notificationOptions.smallIconRes)
-            .setContentTitle(context.getString(notificationOptions.contentTitleRes))
-            .setContentIntent(PendingIntent.getActivity(
-                context,
-                regionId.toInt(),
-                Intent(context, notificationOptions.returnActivity).apply {
-                    putExtra(NotificationOptions.EXTRA_REGION_ID_FOR_ACTIVITY, regionId)
-                },
-                0
-            ))
-            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
-            .setOnlyAlertOnce(true)
+        NotificationCompat.Builder(context, CHANNEL_ID).apply {
+            setSmallIcon(notificationOptions.smallIconRes)
+            setContentTitle(context.getString(notificationOptions.contentTitleRes))
+            setCategory(NotificationCompat.CATEGORY_PROGRESS)
+            setOnlyAlertOnce(true)
+            if (notificationOptions.returnActivity != null) {
+                setContentIntent(PendingIntent.getActivity(
+                    context,
+                    regionId.toInt(),
+                    Intent(context, notificationOptions.returnActivity).apply {
+                        putExtra(NotificationOptions.EXTRA_REGION_ID_FOR_ACTIVITY, regionId)
+                    },
+                    0
+                ))
+            }
+        }
 }

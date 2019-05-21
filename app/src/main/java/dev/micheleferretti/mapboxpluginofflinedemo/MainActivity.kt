@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                             15.0,
                             resources.displayMetrics.density
                         ),
-                        NotificationOptions(returnActivity = MainActivity::class.java),
+                        NotificationOptions(),
                         null
                     ))
                 }
