@@ -84,39 +84,45 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     }
 
     /**
-     * Map of current active downloads. This map is cleared when [unregister] is called.
+     * List of current active downloads, cleared when [unregister] is called.
      */
-    private val activeDownloads = hashMapOf<Long, OfflineDownload>()
+    private val activeDownloads = mutableListOf<OfflineDownload>()
 
     /**
-     * Put `download` in `activeDownloads` map.
+     * Insert or upload `download` in `activeDownloads` list.
      * @param context Receiver Context.
      * @param download The active download.
      */
     private fun putActiveDownload(context: Context, download: OfflineDownload) {
-        activeDownloads[download.regionId] = download
+        val index = activeDownloads.indexOfFirst { it.regionId == download.regionId }
+        if (index != -1) activeDownloads[index] = download else activeDownloads.add(download)
         onActiveDownloadsChanged(context, activeDownloads)
     }
 
     /**
-     * Remove `download` from `activeDownloads` map.
+     * Remove `download` from `activeDownloads` list.
      * @param context Receiver Context.
      * @param download The inactive download.
      */
     private fun removeActiveDownload(context: Context, download: OfflineDownload) {
-        if (activeDownloads.remove(download.regionId) != null) onActiveDownloadsChanged(context, activeDownloads)
+        val index = activeDownloads.indexOfFirst { it.regionId == download.regionId }
+        if (index != -1) {
+            activeDownloads.removeAt(index)
+            onActiveDownloadsChanged(context, activeDownloads)
+        }
     }
 
     /**
-     * Returns a map of current active downloads.
-     * @return a map of current active downloads.
+     * Returns a list of current active downloads.
+     * @return a list of current active downloads.
      */
-    fun getActiveDownloads(): Map<Long, OfflineDownload> = activeDownloads
+    fun getActiveDownloads(): List<OfflineDownload> = activeDownloads
 
     /**
      * Registers this receiver to all the actions.
      * @param context Context used to get the `LocalBroadcastManager` instance.
      */
+    @CallSuper
     fun register(context: Context) = LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter().apply {
         addAction(ACTION_CREATE)
         addAction(ACTION_CREATE_ERROR)
@@ -128,8 +134,10 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     })
 
     /**
-     * Unregisters this receiver and clears the internal map returned by [getActiveDownloads].
+     * Unregisters this receiver and clears the internal list returned by [getActiveDownloads].
+     * @param context Context used to get the `LocalBroadcastManager` instance.
      */
+    @CallSuper
     fun unregister(context: Context) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
         activeDownloads.clear()
@@ -241,12 +249,12 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
     }
 
     /**
-     * Called when `activeDownloads` map changes. Override this to respond to generic changes.
+     * Called when `activeDownloads` list changes. Override this to respond to generic changes.
      * @param context Receiver Context.
-     * @param activeDownloads The active downloads map.
+     * @param activeDownloads The active downloads list.
      * @see getActiveDownloads
      */
-    open fun onActiveDownloadsChanged(context: Context, activeDownloads: Map<Long, OfflineDownload>) {
+    open fun onActiveDownloadsChanged(context: Context, activeDownloads: List<OfflineDownload>) {
         // no-op
     }
 }

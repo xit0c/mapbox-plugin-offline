@@ -5,7 +5,7 @@ An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugi
 
 This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
 ```gradle
-implementation 'dev.micheleferretti:mapbox-plugin-offline:0.2.0'
+implementation 'dev.micheleferretti:mapbox-plugin-offline:1.0.0'
 ```
 
 ## Usage
@@ -60,7 +60,7 @@ OfflineService.cancelDownload(context, regionId)
 
 `OfflineDownloadReceiver` handles all the events the `OfflineService` send.
 
-Its private `activeDownloads` property, accessible via `getActiveDownloads()`, is a `regionId to OfflineDownload` map that gets updated by the receiver (once registered) when certain events occur and is cleared when `unregister()` is called.
+Its private `activeDownloads` property, accessible via `getActiveDownloads()`, is a list of `OfflineDownload` that gets updated by the receiver (once registered) when certain events occur and is cleared when `unregister()` is called.
 
 Extend `OfflineDownloadReceiver` and override only the methods/events you need, then register it with `register()` to start listening.
 
@@ -86,5 +86,5 @@ Download observer failure.
 * `onTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long)`<br>
 Download tile count exceeded.
 
-* `onActiveDownloadsChanged(context: Context, activeDownloads: Map<Long, OfflineDownload>)`<br>
-The active downloads map has changed because one of the events above has occurred (except `onCreateError()`, since in that case the download never became active). Override this method when all you want to do is observe the active downloads, without knowing the reasons they change.
+* `onActiveDownloadsChanged(context: Context, activeDownloads: List<OfflineDownload>)`<br>
+The active downloads list has changed because one of the events above has occurred (except `onCreateError()`, since in that case the download never became active). Override this method when all you want to do is observe the active downloads, without knowing the reasons they change.
