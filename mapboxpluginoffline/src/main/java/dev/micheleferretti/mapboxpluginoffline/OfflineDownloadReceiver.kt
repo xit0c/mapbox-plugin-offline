@@ -123,7 +123,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param context Context used to get the `LocalBroadcastManager` instance.
      */
     @CallSuper
-    fun register(context: Context) = LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter().apply {
+    open fun register(context: Context) = LocalBroadcastManager.getInstance(context).registerReceiver(this, IntentFilter().apply {
         addAction(ACTION_CREATE)
         addAction(ACTION_CREATE_ERROR)
         addAction(ACTION_DELETE)
@@ -138,7 +138,7 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
      * @param context Context used to get the `LocalBroadcastManager` instance.
      */
     @CallSuper
-    fun unregister(context: Context) {
+    open fun unregister(context: Context) {
         LocalBroadcastManager.getInstance(context).unregisterReceiver(this)
         activeDownloads.clear()
     }
