@@ -114,7 +114,7 @@ class OfflineDownload(
      * As in `OfflineRegionStatus`, validates if the region download has completed.
      * @return `true` if download is complete, `false` if not.
      */
-    fun isComplete() = (completedResourceCount == requiredResourceCount) && !isActive
+    fun isComplete() = completedResourceCount >= requiredResourceCount
 
     /**
      * Updates the download status properties

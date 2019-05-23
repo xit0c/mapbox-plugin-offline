@@ -8,7 +8,7 @@ File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
-String libVersionName = '1.1.0'
+String libVersionName = '1.1.1'
 String javadocDir = "$buildDir/javadoc"
 String docsDir = "$rootDir/docs"
 
