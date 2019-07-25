@@ -5,15 +5,15 @@ buildscript {
         androidx_test_espresso_version = '3.2.0'
         androidx_test_junit_version = '1.1.1'
         junit_version = '4.12'
-        kotlin_version = '1.3.40'
-        mapbox_version = '8.1.0'
+        kotlin_version = '1.3.41'
+        mapbox_version = '8.2.0'
     }
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath 'com.novoda:bintray-release:0.9.1'
         classpath 'org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
