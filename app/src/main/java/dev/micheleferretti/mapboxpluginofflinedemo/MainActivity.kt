@@ -19,7 +19,7 @@ import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(R.layout.activity_main), View.OnClickListener {
 
     private val logAdapter = LogAdapter()
     private val receiver = Receiver()
@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
 
         Mapbox.getInstance(this, BuildConfig.MAPBOX_ACCESS_TOKEN)
-
-        setContentView(R.layout.activity_main)
 
         active_downloads_btn.setOnClickListener(this)
         download_btn.setOnClickListener(this)
@@ -98,9 +96,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         receiver.unregister(this)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        map?.onSaveInstanceState(outState ?: Bundle())
+        map?.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
