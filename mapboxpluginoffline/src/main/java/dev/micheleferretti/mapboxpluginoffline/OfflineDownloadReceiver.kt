@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.annotation.CallSuper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
@@ -28,57 +29,53 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         private const val ACTION_OBSERVER_ERROR             = "$CONSTANT_PREFIX.action.OBSERVER_ERROR"
         private const val ACTION_TILE_COUNT_LIMIT_EXCEEDED  = "$CONSTANT_PREFIX.action.TILE_COUNT_LIMIT_EXCEEDED"
 
+        private const val EXTRA_PARCELABLE                  = "$CONSTANT_PREFIX.extra.PARCELABLE"
         private const val EXTRA_1                           = "$CONSTANT_PREFIX.extra.1"
         private const val EXTRA_2                           = "$CONSTANT_PREFIX.extra.2"
 
         @JvmStatic
         fun dispatchCreate(context: Context, download: OfflineDownload) {
-            dispatch(context, ACTION_CREATE, download.toBundle())
+            dispatch(context, ACTION_CREATE, download)
         }
 
         @JvmStatic
         fun dispatchCreateError(context: Context, options: OfflineDownloadOptions, error: String?) {
-            dispatch(context, ACTION_CREATE_ERROR, options.toBundle().apply {
-                putString(EXTRA_1, error)
-            })
+            dispatch(context, ACTION_CREATE_ERROR, options) { putString(EXTRA_1, error) }
         }
 
         @JvmStatic
         fun dispatchDelete(context: Context, download: OfflineDownload) {
-            dispatch(context, ACTION_DELETE, download.toBundle())
+            dispatch(context, ACTION_DELETE, download)
         }
 
         @JvmStatic
         fun dispatchDeleteError(context: Context, download: OfflineDownload, error: String?) {
-            dispatch(context, ACTION_DELETE_ERROR, download.toBundle().apply {
-                putString(EXTRA_1, error)
-            })
+            dispatch(context, ACTION_DELETE_ERROR, download) { putString(EXTRA_1, error) }
         }
 
         @JvmStatic
         fun dispatchStatusChanged(context: Context, download: OfflineDownload) {
-            dispatch(context, ACTION_STATUS_CHANGED, download.toBundle())
+            dispatch(context, ACTION_STATUS_CHANGED, download)
         }
 
         @JvmStatic
         fun dispatchObserverError(context: Context, download: OfflineDownload, reason: String?, message: String?) {
-            dispatch(context, ACTION_OBSERVER_ERROR, download.toBundle().apply {
+            dispatch(context, ACTION_OBSERVER_ERROR, download) {
                 putString(EXTRA_1, reason)
                 putString(EXTRA_2, message)
-            })
+            }
         }
 
         @JvmStatic
         fun dispatchTileCountLimitExceeded(context: Context, download: OfflineDownload, limit: Long) {
-            dispatch(context, ACTION_TILE_COUNT_LIMIT_EXCEEDED, download.toBundle().apply {
-                putLong(EXTRA_1, limit)
-            })
+            dispatch(context, ACTION_TILE_COUNT_LIMIT_EXCEEDED, download) { putLong(EXTRA_1, limit) }
         }
 
-        private fun dispatch(context: Context, intentAction: String, intentExtras: Bundle) {
+        private fun dispatch(context: Context, intentAction: String, parcelable: Parcelable, extrasBlock: (Bundle.() -> Unit)? = null) {
             LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply {
                 action = intentAction
-                putExtras(intentExtras)
+                putExtra(EXTRA_PARCELABLE, parcelable)
+                if (extrasBlock != null) putExtras(Bundle().apply(extrasBlock))
             })
         }
     }
@@ -151,25 +148,25 @@ open class OfflineDownloadReceiver: BroadcastReceiver() {
         val ctx = context?.applicationContext ?: return
         when (intent?.action) {
             ACTION_CREATE -> intent.extras?.also {
-                onCreate(ctx, OfflineDownload.fromBundle(it))
+                onCreate(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)))
             }
             ACTION_CREATE_ERROR -> intent.extras?.also {
-                onCreateError(ctx, OfflineDownloadOptions.fromBundle(it), it.getString(EXTRA_1))
+                onCreateError(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)), it.getString(EXTRA_1))
             }
             ACTION_DELETE -> intent.extras?.also {
-                onDelete(ctx, OfflineDownload.fromBundle(it))
+                onDelete(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)))
             }
             ACTION_DELETE_ERROR -> intent.extras?.also {
-                onDeleteError(ctx, OfflineDownload.fromBundle(it), it.getString(EXTRA_1))
+                onDeleteError(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)), it.getString(EXTRA_1))
             }
             ACTION_STATUS_CHANGED -> intent.extras?.also {
-                onStatusChanged(ctx, OfflineDownload.fromBundle(it))
+                onStatusChanged(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)))
             }
             ACTION_OBSERVER_ERROR -> intent.extras?.also {
-                onObserverError(ctx, OfflineDownload.fromBundle(it), it.getString(EXTRA_1), it.getString(EXTRA_2))
+                onObserverError(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)), it.getString(EXTRA_1), it.getString(EXTRA_2))
             }
             ACTION_TILE_COUNT_LIMIT_EXCEEDED -> intent.extras?.also {
-                onTileCountLimitExceeded(ctx, OfflineDownload.fromBundle(it), it.requireLong(EXTRA_1))
+                onTileCountLimitExceeded(ctx, requireNotNull(it.getParcelable(EXTRA_PARCELABLE)), it.requireLong(EXTRA_1))
             }
         }
     }

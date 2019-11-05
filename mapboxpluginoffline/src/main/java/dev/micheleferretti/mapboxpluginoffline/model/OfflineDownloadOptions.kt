@@ -1,9 +1,10 @@
 package dev.micheleferretti.mapboxpluginoffline.model
 
-import android.os.Bundle
+import android.os.Parcelable
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.convertToString
+import kotlinx.android.parcel.Parcelize
 
 /**
  * This model represents the options for the download managed by
@@ -15,29 +16,12 @@ import dev.micheleferretti.mapboxpluginoffline.utils.convertToString
  * @property metadata Region metadata that will be used in `OfflineManager.createOfflineRegion()`.
  * @constructor Creates a `OfflineDownloadOptions` with the given values.
  */
+@Parcelize
 class OfflineDownloadOptions(
     val definition: OfflineRegionDefinition,
     val notificationOptions: NotificationOptions,
     val metadata: ByteArray?
-) {
-    companion object {
-        private const val EXTRA_DEFINITION = "extra.DEFINITION"
-        private const val EXTRA_NOTIFICATION_OPTIONS = "extra.NOTIFICATION_OPTIONS"
-        private const val EXTRA_METADATA = "extra.METADATA"
-
-        /**
-         * Creates a `OfflineDownloadOptions` from a `Bundle`.
-         * @param bundle the source `Bundle`.
-         * @return a new `OfflineDownloadOptions`.
-         * @see toBundle
-         */
-        @JvmStatic
-        fun fromBundle(bundle: Bundle) = OfflineDownloadOptions(
-            requireNotNull(bundle.getParcelable(EXTRA_DEFINITION)),
-            NotificationOptions.fromBundle(requireNotNull(bundle.getBundle(EXTRA_NOTIFICATION_OPTIONS))),
-            bundle.getByteArray(EXTRA_METADATA)
-        )
-    }
+): Parcelable {
 
     /**
      * Creates a `OfflineDownloadOptions` with the given values,
@@ -48,17 +32,6 @@ class OfflineDownloadOptions(
         notificationOptions: NotificationOptions,
         regionName: String
     ) : this(definition, notificationOptions, OfflineUtils.convertRegionName(regionName))
-
-    /**
-     * Creates a `Bundle` from this object.
-     * @return a new `Bundle`.
-     * @see fromBundle
-     */
-    fun toBundle() = Bundle().apply {
-        putParcelable(EXTRA_DEFINITION, definition)
-        putBundle(EXTRA_NOTIFICATION_OPTIONS, notificationOptions.toBundle())
-        putByteArray(EXTRA_METADATA, metadata)
-    }
 
     /**
      * Returns the region name converting [metadata] with [OfflineUtils.convertRegionName].

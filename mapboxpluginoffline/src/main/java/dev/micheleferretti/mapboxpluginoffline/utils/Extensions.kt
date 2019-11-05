@@ -8,16 +8,6 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
  * Returns the value associated with the given key, if exists and is of the desired type. Otherwise throws.
  *
  * @param key a String
- * @return a boolean value
- * @throws IllegalArgumentException
- */
-fun Bundle.requireBoolean(key: String): Boolean =
-    this.get(key) as? Boolean ?: throw IllegalArgumentException("Required value is missing or not a Boolean")
-
-/**
- * Returns the value associated with the given key, if exists and is of the desired type. Otherwise throws.
- *
- * @param key a String
  * @return a long value
  * @throws IllegalArgumentException
  */

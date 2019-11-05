@@ -46,6 +46,11 @@ android {
     }
 }
 
+// TODO: remove this as soon as Parcelable lint error is fixed
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 

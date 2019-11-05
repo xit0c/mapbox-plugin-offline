@@ -32,6 +32,7 @@ class OfflineService : Service() {
         internal const val ACTION_DOWNLOAD  = "$CONSTANT_PREFIX.action.DOWNLOAD"
         internal const val ACTION_CANCEL    = "$CONSTANT_PREFIX.action.CANCEL"
 
+        private const val EXTRA_OPTIONS     = "$CONSTANT_PREFIX.extra.OPTIONS"
         private const val EXTRA_REGION_ID   = "$CONSTANT_PREFIX.extra.REGION_ID"
 
         /**
@@ -41,7 +42,9 @@ class OfflineService : Service() {
          */
         @JvmStatic
         fun startDownload(context: Context, offlineDownloadOptions: OfflineDownloadOptions) {
-            context.startService(createIntent(context, ACTION_DOWNLOAD, offlineDownloadOptions.toBundle()))
+            context.startService(createIntent(context, ACTION_DOWNLOAD) {
+                putParcelable(EXTRA_OPTIONS, offlineDownloadOptions)
+            })
         }
 
         /**
@@ -56,14 +59,11 @@ class OfflineService : Service() {
 
         @JvmStatic
         internal fun createIntent(context: Context, intentAction: String, regionId: Long) =
-            createIntent(context, intentAction, Bundle().apply { putLong(EXTRA_REGION_ID, regionId) })
+            createIntent(context, intentAction) { putLong(EXTRA_REGION_ID, regionId) }
 
         @JvmStatic
-        internal fun createIntent(context: Context, intentAction: String, intentExtras: Bundle) =
-            Intent(context, OfflineService::class.java).apply {
-                action = intentAction
-                putExtras(intentExtras)
-            }
+        internal fun createIntent(context: Context, intentAction: String, extrasBlock: Bundle.() -> Unit) =
+            Intent(intentAction, null, context, OfflineService::class.java).putExtras(Bundle().apply(extrasBlock))
     }
 
     private lateinit var notificationManager: NotificationManagerCompat
@@ -90,7 +90,7 @@ class OfflineService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         when (intent?.action) {
             ACTION_DOWNLOAD -> {
-                val options = OfflineDownloadOptions.fromBundle(requireNotNull(intent.extras))
+                val options = requireNotNull(intent.extras?.getParcelable<OfflineDownloadOptions>(EXTRA_OPTIONS))
                 OfflineManager.getInstance(applicationContext).createOfflineRegion(
                     options.definition,
                     options.metadata ?: byteArrayOf(),

@@ -1,9 +1,10 @@
 package dev.micheleferretti.mapboxpluginoffline.model
 
-import android.os.Bundle
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import dev.micheleferretti.mapboxpluginoffline.R
+import kotlinx.android.parcel.Parcelize
 
 /**
  * This model represents the options for the notification shown by
@@ -18,6 +19,7 @@ import dev.micheleferretti.mapboxpluginoffline.R
  * @property returnActivity The activity to start on notification tap.
  * @constructor Creates a `NotificationOptions` with the given values.
  */
+@Parcelize
 class NotificationOptions @JvmOverloads constructor(
     @DrawableRes val smallIconRes: Int = DEFAULT_SMALL_ICON_RES,
     @StringRes val contentTitleRes: Int = DEFAULT_CONTENT_TITLE_RES,
@@ -26,7 +28,7 @@ class NotificationOptions @JvmOverloads constructor(
     @StringRes val cancelActionTextRes: Int = DEFAULT_CANCEL_ACTION_TEXT_RES,
     val requestMapSnapshot: Boolean = DEFAULT_REQUEST_MAP_SNAPSHOT,
     val returnActivity: Class<*>? = DEFAULT_RETURN_ACTIVITY
-) {
+): Parcelable {
     companion object {
         private const val DEFAULT_SMALL_ICON_RES = android.R.drawable.stat_sys_download
         private val DEFAULT_CONTENT_TITLE_RES = R.string.notification_default_content_title
@@ -36,51 +38,11 @@ class NotificationOptions @JvmOverloads constructor(
         private const val DEFAULT_REQUEST_MAP_SNAPSHOT = true
         private val DEFAULT_RETURN_ACTIVITY = null
 
-        private const val EXTRA_SMALL_ICON_RES = "extra.SMALL_ICON_RES"
-        private const val EXTRA_CONTENT_TITLE_RES = "extra.CONTENT_TITLE_RES"
-        private const val EXTRA_DOWNLOAD_CONTENT_TEXT_RES = "extra.DOWNLOAD_CONTENT_TEXT_RES"
-        private const val EXTRA_CANCEL_CONTENT_TEXT_RES = "extra.CANCEL_CONTENT_TEXT_RES"
-        private const val EXTRA_CANCEL_ACTION_TEXT_RES = "extra.CANCEL_ACTION_TEXT_RES"
-        private const val EXTRA_REQUEST_MAP_SNAPSHOT = "extra.REQUEST_MAP_SNAPSHOT"
-        private const val EXTRA_RETURN_ACTIVITY = "extra.RETURN_ACTIVITY"
-
         /**
          * Key for the `OfflineRegion` id put as an extra of the Intent used to start [returnActivity].
          * @see dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils.getRegionIdFromIntent
          */
         const val EXTRA_REGION_ID_FOR_ACTIVITY = "extra.REGION_ID_FOR_ACTIVITY"
-
-        /**
-         * Creates a `NotificationOptions` from a `Bundle`.
-         * @param bundle the source `Bundle`.
-         * @return a new  `NotificationOptions`.
-         * @see toBundle
-         */
-        @JvmStatic
-        fun fromBundle(bundle: Bundle) = NotificationOptions(
-            bundle.getInt(EXTRA_SMALL_ICON_RES, DEFAULT_SMALL_ICON_RES),
-            bundle.getInt(EXTRA_CONTENT_TITLE_RES, DEFAULT_CONTENT_TITLE_RES),
-            bundle.getInt(EXTRA_DOWNLOAD_CONTENT_TEXT_RES, DEFAULT_DOWNLOAD_CONTENT_TEXT_RES),
-            bundle.getInt(EXTRA_CANCEL_CONTENT_TEXT_RES, DEFAULT_CANCEL_CONTENT_TEXT_RES),
-            bundle.getInt(EXTRA_CANCEL_ACTION_TEXT_RES, DEFAULT_CANCEL_ACTION_TEXT_RES),
-            bundle.getBoolean(EXTRA_REQUEST_MAP_SNAPSHOT, DEFAULT_REQUEST_MAP_SNAPSHOT),
-            bundle.getSerializable(EXTRA_RETURN_ACTIVITY) as? Class<*>
-        )
-    }
-
-    /**
-     * Creates a `Bundle` from this object.
-     * @return a new `Bundle`.
-     * @see fromBundle
-     */
-    fun toBundle() = Bundle().apply {
-        putInt(EXTRA_SMALL_ICON_RES, smallIconRes)
-        putInt(EXTRA_CONTENT_TITLE_RES, contentTitleRes)
-        putInt(EXTRA_DOWNLOAD_CONTENT_TEXT_RES, downloadContentTextRes)
-        putInt(EXTRA_CANCEL_CONTENT_TEXT_RES, cancelContentTextRes)
-        putInt(EXTRA_CANCEL_ACTION_TEXT_RES, cancelActionTextRes)
-        putBoolean(EXTRA_REQUEST_MAP_SNAPSHOT, requestMapSnapshot)
-        putSerializable(EXTRA_RETURN_ACTIVITY, returnActivity)
     }
 
     /**
