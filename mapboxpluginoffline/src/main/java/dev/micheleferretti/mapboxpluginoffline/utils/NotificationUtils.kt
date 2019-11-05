@@ -44,7 +44,7 @@ internal object NotificationUtils {
     fun baseNotificationBuilder(context: Context, notificationOptions: NotificationOptions, regionId: Long): NotificationCompat.Builder =
         NotificationCompat.Builder(context, CHANNEL_ID).apply {
             setSmallIcon(notificationOptions.smallIconRes)
-            setContentTitle(context.getString(notificationOptions.contentTitleRes))
+            setContentTitle(notificationOptions.contentTitle)
             setCategory(NotificationCompat.CATEGORY_PROGRESS)
             setOnlyAlertOnce(true)
             if (notificationOptions.returnActivity != null) {

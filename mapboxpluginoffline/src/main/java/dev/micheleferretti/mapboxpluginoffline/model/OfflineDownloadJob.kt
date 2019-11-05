@@ -29,13 +29,13 @@ internal class OfflineDownloadJob(
 
     private val notificationCancel: NotificationCompat.Builder =
         NotificationUtils.baseNotificationBuilder(context, options.notificationOptions, region.id)
-            .setContentText(context.getString(options.notificationOptions.cancelContentTextRes))
+            .setContentText(options.notificationOptions.cancelContentText)
             .setProgress(100, 0, true)
 
     private val notificationDownload: NotificationCompat.Builder =
         NotificationUtils.baseNotificationBuilder(context, options.notificationOptions, region.id)
-            .setContentText(context.getString(options.notificationOptions.downloadContentTextRes))
-            .addAction(0, context.getString(options.notificationOptions.cancelActionTextRes), PendingIntent.getService(
+            .setContentText(options.notificationOptions.downloadContentText)
+            .addAction(0, options.notificationOptions.cancelActionText, PendingIntent.getService(
                 context,
                 region.id.toInt(),
                 OfflineService.createIntent(context, OfflineService.ACTION_CANCEL, region.id),
