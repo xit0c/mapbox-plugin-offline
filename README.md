@@ -5,7 +5,7 @@ An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugi
 
 This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
 ```gradle
-implementation 'dev.micheleferretti:mapbox-plugin-offline:1.1.9'
+implementation 'dev.micheleferretti:mapbox-plugin-offline:2.0.0'
 ```
 
 ## Usage
@@ -20,10 +20,10 @@ Create a `NotificationOptions`: the options you provide will be used to build `O
 ```kotlin
 val notificationOptions = NotificationOptions(
     R.drawable.small_icon, // @DrawableRes for notification's small icon
-    R.string.content_title, // @StringRes for notification's content title
-    R.string.download_content_text, // @StringRes for notification's content text, shown during download
-    R.string.cancel_content_text, // @StringRes for notification's content text, shown during cancellation
-    R.string.cancel_action_text, // @StringRes for notification's cancel action text
+    contentTitle, // notification's content title
+    downloadContentText, // notification's content text shown during download
+    cancelContentText, // notification's content text shown during cancellation
+    cancelActionText, // notification's cancel action text
     true, // whether or not to add a map snapshot of the region as notification's large icon
     MyReturnActivity::class.java // Activity to start on notification tap (can be null)
 )
