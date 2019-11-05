@@ -2,7 +2,7 @@
 
 # definition
 
-`val definition: OfflineRegionDefinition` [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownloadOptions.kt#L19)
+`val definition: OfflineRegionDefinition` [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownloadOptions.kt#L21)
 
 Region definition that will be used in `OfflineManager.createOfflineRegion()`.
 

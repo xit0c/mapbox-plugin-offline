@@ -2,7 +2,7 @@
 
 # OfflineDownloadReceiver
 
-`open class OfflineDownloadReceiver : `[`BroadcastReceiver`](https://developer.android.com/reference/android/content/BroadcastReceiver.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/OfflineDownloadReceiver.kt#L18)
+`open class OfflineDownloadReceiver : `[`BroadcastReceiver`](https://developer.android.com/reference/android/content/BroadcastReceiver.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/OfflineDownloadReceiver.kt#L19)
 
 This `BroadcastReceiver` can be used to intercept [OfflineService](../-offline-service/index.md)
 events and monitor active downloads.

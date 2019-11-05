@@ -2,7 +2,7 @@
 
 # OfflineDownload
 
-`class OfflineDownload` [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L21)
+`class OfflineDownload : `[`Parcelable`](https://developer.android.com/reference/android/os/Parcelable.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L21)
 
 This model represents the download managed by
 the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md).
@@ -34,12 +34,10 @@ the `OfflineRegionObserver` attached to the region in order to monitor its downl
 | [getRequiredResourceCount](get-required-resource-count.md) | `fun getRequiredResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)<br>As in `OfflineRegionStatus`, returns the number of resources that are known to be required. |
 | [isActive](is-active.md) | `fun isActive(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>Validates if `OfflineRegionStatus.getDownloadState()` equals `OfflineRegion.STATE_ACTIVE`. |
 | [isComplete](is-complete.md) | `fun isComplete(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>As in `OfflineRegionStatus`, validates if the region download has completed. |
-| [toBundle](to-bundle.md) | `fun toBundle(): `[`Bundle`](https://developer.android.com/reference/android/os/Bundle.html)<br>Creates a `Bundle` from this object. |
 | [toString](to-string.md) | `fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Returns a `String` representation of this object. |
 
 ### Companion Object Functions
 
 | Name | Summary |
 |---|---|
-| [fromBundle](from-bundle.md) | `fun fromBundle(bundle: `[`Bundle`](https://developer.android.com/reference/android/os/Bundle.html)`): `[`OfflineDownload`](./index.md)<br>Creates a `OfflineDownload` from a `Bundle`. |
 | [getPercentage](get-percentage.md) | `fun getPercentage(completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Returns the completion percentage. |
