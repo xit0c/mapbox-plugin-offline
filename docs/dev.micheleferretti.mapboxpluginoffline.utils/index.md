@@ -6,7 +6,7 @@
 
 | Name | Summary |
 |---|---|
-| [OfflineUtils](-offline-utils/index.md) | `object OfflineUtils`<br>This object only purpose is to provide utility methods. |
+| [OfflineUtils](-offline-utils/index.md) | This object only purpose is to provide utility methods.`object OfflineUtils` |
 
 ### Extensions for External Classes
 

@@ -4,5 +4,5 @@
 
 | Name | Summary |
 |---|---|
-| [convertToString](convert-to-string.md) | `fun OfflineRegionDefinition.convertToString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Returns a `String` representation of this object. |
-| [getCameraPosition](get-camera-position.md) | `fun OfflineRegionDefinition.getCameraPosition(): CameraPosition!`<br>Returns a `CameraPosition` built with this definition data. |
+| [convertToString](convert-to-string.md) | Returns a `String` representation of this object.`fun OfflineRegionDefinition.convertToString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [getCameraPosition](get-camera-position.md) | Returns a `CameraPosition` built with this definition data.`fun OfflineRegionDefinition.getCameraPosition(): CameraPosition!` |

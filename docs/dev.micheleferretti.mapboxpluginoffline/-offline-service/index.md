@@ -15,11 +15,11 @@ to make the user aware of what's going on.
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `OfflineService()`<br>This is the core of the plugin. It manages the downloads, shows notifications and dispatches events that [OfflineDownloadReceiver](../-offline-download-receiver/index.md)s can listen to. |
+| [&lt;init&gt;](-init-.md) | This is the core of the plugin. It manages the downloads, shows notifications and dispatches events that [OfflineDownloadReceiver](../-offline-download-receiver/index.md)s can listen to.`OfflineService()` |
 
 ### Companion Object Functions
 
 | Name | Summary |
 |---|---|
-| [cancelDownload](cancel-download.md) | `fun cancelDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Cancels an active download and deletes its region. |
-| [startDownload](start-download.md) | `fun startDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, offlineDownloadOptions: `[`OfflineDownloadOptions`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download-options/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html)<br>Starts a new download with the provided options. |
+| [cancelDownload](cancel-download.md) | Cancels an active download and deletes its region.`fun cancelDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |
+| [startDownload](start-download.md) | Starts a new download with the provided options.`fun startDownload(context: `[`Context`](https://developer.android.com/reference/android/content/Context.html)`, offlineDownloadOptions: `[`OfflineDownloadOptions`](../../dev.micheleferretti.mapboxpluginoffline.model/-offline-download-options/index.md)`): `[`Unit`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) |

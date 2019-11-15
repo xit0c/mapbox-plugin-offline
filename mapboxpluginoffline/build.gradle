@@ -2,13 +2,13 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'org.jetbrains.dokka-android'
+apply plugin: 'org.jetbrains.dokka'
 
 File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
-String libVersionName = '2.0.0'
+String libVersionName = '2.0.1'
 String javadocDir = "$buildDir/javadoc"
 String docsDir = "$rootDir/docs"
 
@@ -25,14 +25,16 @@ android {
     dokka {
         outputFormat = 'gfm'
         outputDirectory = javadocDir
-        linkMapping {
-            dir = "./"
-            url = "https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/"
-            suffix = "#L" // suffix used to append the line number to the URL (#L for GitHub)
-        }
-        externalDocumentationLink {
-            url = new URL("https://developer.android.com/reference/")
-            packageListUrl = new URL("https://developer.android.com/reference/androidx/package-list")
+        configuration {
+            sourceLink {
+                path = "./"
+                url = "https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/"
+                lineSuffix = "#L" // suffix used to append the line number to the URL (#L for GitHub)
+            }
+            externalDocumentationLink {
+                url = new URL("https://developer.android.com/reference/")
+                packageListUrl = new URL("https://developer.android.com/reference/androidx/package-list")
+            }
         }
     }
     buildTypes {
@@ -44,11 +46,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-}
-
-// TODO: remove this as soon as Parcelable lint error is fixed
-androidExtensions {
-    experimental = true
 }
 
 dependencies {

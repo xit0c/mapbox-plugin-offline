@@ -11,19 +11,19 @@ the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-serv
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `OfflineDownloadOptions(definition: OfflineRegionDefinition, notificationOptions: `[`NotificationOptions`](../-notification-options/index.md)`, regionName: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`<br>Creates a `OfflineDownloadOptions` with the given values, converting [regionName](-init-.md#dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/regionName) to a `ByteArray` with [OfflineUtils.convertRegionName](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md).`OfflineDownloadOptions(definition: OfflineRegionDefinition, notificationOptions: `[`NotificationOptions`](../-notification-options/index.md)`, metadata: `[`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html)`?)`<br>Creates a `OfflineDownloadOptions` with the given values. |
+| [&lt;init&gt;](-init-.md) | Creates a `OfflineDownloadOptions` with the given values, converting [regionName](-init-.md#dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions$<init>(com.mapbox.mapboxsdk.offline.OfflineRegionDefinition, dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions, kotlin.String)/regionName) to a `ByteArray` with [OfflineUtils.convertRegionName](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md).`OfflineDownloadOptions(definition: OfflineRegionDefinition, notificationOptions: `[`NotificationOptions`](../-notification-options/index.md)`, regionName: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`)`<br>Creates a `OfflineDownloadOptions` with the given values.`OfflineDownloadOptions(definition: OfflineRegionDefinition, notificationOptions: `[`NotificationOptions`](../-notification-options/index.md)`, metadata: `[`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html)`?)` |
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| [definition](definition.md) | `val definition: OfflineRegionDefinition`<br>Region definition that will be used in `OfflineManager.createOfflineRegion()`. |
-| [metadata](metadata.md) | `val metadata: `[`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html)`?`<br>Region metadata that will be used in `OfflineManager.createOfflineRegion()`. |
-| [notificationOptions](notification-options.md) | `val notificationOptions: `[`NotificationOptions`](../-notification-options/index.md)<br>Options that will be used for the notification shown by the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md). |
+| [definition](definition.md) | Region definition that will be used in `OfflineManager.createOfflineRegion()`.`val definition: OfflineRegionDefinition` |
+| [metadata](metadata.md) | Region metadata that will be used in `OfflineManager.createOfflineRegion()`.`val metadata: `[`ByteArray`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html)`?` |
+| [notificationOptions](notification-options.md) | Options that will be used for the notification shown by the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md).`val notificationOptions: `[`NotificationOptions`](../-notification-options/index.md) |
 
 ### Functions
 
 | Name | Summary |
 |---|---|
-| [getRegionName](get-region-name.md) | `fun getRegionName(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?`<br>Returns the region name converting [metadata](metadata.md) with [OfflineUtils.convertRegionName](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md). |
-| [toString](to-string.md) | `fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Returns a `String` representation of this object. |
+| [getRegionName](get-region-name.md) | Returns the region name converting [metadata](metadata.md) with [OfflineUtils.convertRegionName](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md).`fun getRegionName(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?` |
+| [toString](to-string.md) | Returns a `String` representation of this object.`fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |

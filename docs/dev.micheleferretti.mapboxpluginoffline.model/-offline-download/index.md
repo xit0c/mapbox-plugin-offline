@@ -15,29 +15,29 @@ the `OfflineRegionObserver` attached to the region in order to monitor its downl
 
 | Name | Summary |
 |---|---|
-| [&lt;init&gt;](-init-.md) | `OfflineDownload(regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md)`)`<br>Creates a `OfflineDownload` with the given values and no status data.`OfflineDownload(regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md)`, completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, completedResourceSize: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, isActive: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`)`<br>Creates a `OfflineDownload` with the given values. |
+| [&lt;init&gt;](-init-.md) | Creates a `OfflineDownload` with the given values and no status data.`OfflineDownload(regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md)`)`<br>Creates a `OfflineDownload` with the given values.`OfflineDownload(regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md)`, completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, completedResourceSize: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, isActive: `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`)` |
 
 ### Properties
 
 | Name | Summary |
 |---|---|
-| [options](options.md) | `val options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md)<br>Options used to start the download. |
-| [regionId](region-id.md) | `val regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)<br>`OfflineRegion` id. |
+| [options](options.md) | Options used to start the download.`val options: `[`OfflineDownloadOptions`](../-offline-download-options/index.md) |
+| [regionId](region-id.md) | `OfflineRegion` id.`val regionId: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 
 ### Functions
 
 | Name | Summary |
 |---|---|
-| [getCompletedResourceCount](get-completed-resource-count.md) | `fun getCompletedResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)<br>As in `OfflineRegionStatus`, returns the number of resources that have been fully download. |
-| [getCompletedResourceSize](get-completed-resource-size.md) | `fun getCompletedResourceSize(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)<br>As in `OfflineRegionStatus`, returns the cumulative size, in bytes, of all resources that have been fully downloaded. |
-| [getPercentage](get-percentage.md) | `fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Returns the download completion percentage. |
-| [getRequiredResourceCount](get-required-resource-count.md) | `fun getRequiredResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)<br>As in `OfflineRegionStatus`, returns the number of resources that are known to be required. |
-| [isActive](is-active.md) | `fun isActive(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>Validates if `OfflineRegionStatus.getDownloadState()` equals `OfflineRegion.STATE_ACTIVE`. |
-| [isComplete](is-complete.md) | `fun isComplete(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)<br>As in `OfflineRegionStatus`, validates if the region download has completed. |
-| [toString](to-string.md) | `fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>Returns a `String` representation of this object. |
+| [getCompletedResourceCount](get-completed-resource-count.md) | As in `OfflineRegionStatus`, returns the number of resources that have been fully download.`fun getCompletedResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [getCompletedResourceSize](get-completed-resource-size.md) | As in `OfflineRegionStatus`, returns the cumulative size, in bytes, of all resources that have been fully downloaded.`fun getCompletedResourceSize(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [getPercentage](get-percentage.md) | Returns the download completion percentage.`fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [getRequiredResourceCount](get-required-resource-count.md) | As in `OfflineRegionStatus`, returns the number of resources that are known to be required.`fun getRequiredResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
+| [isActive](is-active.md) | Validates if `OfflineRegionStatus.getDownloadState()` equals `OfflineRegion.STATE_ACTIVE`.`fun isActive(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [isComplete](is-complete.md) | As in `OfflineRegionStatus`, validates if the region download has completed.`fun isComplete(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [toString](to-string.md) | Returns a `String` representation of this object.`fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 
 ### Companion Object Functions
 
 | Name | Summary |
 |---|---|
-| [getPercentage](get-percentage.md) | `fun getPercentage(completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)<br>Returns the completion percentage. |
+| [getPercentage](get-percentage.md) | Returns the completion percentage.`fun getPercentage(completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
