@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        androidx_core_version = '1.1.0'
+        androidx_core_version = '1.2.0'
         androidx_test_runner_version = '1.2.0'
         androidx_test_espresso_version = '3.2.0'
         androidx_test_junit_version = '1.1.1'
@@ -15,7 +15,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.novoda:bintray-release:0.9.2'
-        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.0'
+        classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
