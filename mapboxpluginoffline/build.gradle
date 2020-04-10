@@ -8,15 +8,15 @@ File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
-String libVersionName = '2.0.8'
+String libVersionName = '2.0.9'
 String javadocDir = "$buildDir/javadoc"
 String docsDir = "$rootDir/docs"
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName libVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
