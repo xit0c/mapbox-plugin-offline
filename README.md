@@ -5,7 +5,7 @@ An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugi
 
 This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
 ```gradle
-implementation 'dev.micheleferretti:mapbox-plugin-offline:2.0.9'
+implementation 'dev.micheleferretti:mapbox-plugin-offline:2.0.10'
 ```
 
 ## Usage
