@@ -11,6 +11,8 @@ sealed class LogMessage(val tag: String, val message: String, @ColorRes val colo
         private val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH.mm.ss", Locale.US)
     }
 
+    val formattedMessage = "${dateFormatter.format(Date())} - $tag: $message"
+
     class Plain(tag: String, message: String): LogMessage(tag, message, android.R.color.black)
 
     class Create(download: OfflineDownload): LogMessage(
@@ -35,6 +37,4 @@ sealed class LogMessage(val tag: String, val message: String, @ColorRes val colo
     )
 
     class Error(tag: String, message: String): LogMessage(tag, message, android.R.color.holo_red_dark)
-
-    fun getFormattedMessage() = "${dateFormatter.format(Date())} - $tag: $message"
 }

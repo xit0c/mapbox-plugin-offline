@@ -5,34 +5,31 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mapbox.mapboxsdk.Mapbox
 import com.mapbox.mapboxsdk.geometry.LatLngBounds
 import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.offline.OfflineTilePyramidRegionDefinition
-import dev.micheleferretti.mapboxpluginoffline.BuildConfig
 import dev.micheleferretti.mapboxpluginoffline.OfflineDownloadReceiver
 import dev.micheleferretti.mapboxpluginoffline.OfflineService
 import dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_demo.*
 
-class MainActivity : AppCompatActivity(R.layout.activity_main), View.OnClickListener {
+class DemoActivity : AppCompatActivity(R.layout.activity_demo), View.OnClickListener {
 
     private val logAdapter = LogAdapter()
     private val receiver = Receiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        Mapbox.getInstance(this, BuildConfig.MAPBOX_ACCESS_TOKEN)
-
         active_downloads_btn.setOnClickListener(this)
         download_btn.setOnClickListener(this)
         logs_rv.apply {
             setHasFixedSize(true)
+            addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
             adapter = logAdapter
         }

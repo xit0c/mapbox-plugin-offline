@@ -107,7 +107,7 @@ bintray {
     user = secretProps.getProperty('bintray.user', '')
     key = secretProps.getProperty('bintray.key', '')
     publications = ['release']
-    dryRun = true
+    dryRun = false
     publish = true
     override = false
     pkg {

@@ -43,7 +43,7 @@ class LogAdapter: RecyclerView.Adapter<LogAdapter.LogViewHolder>() {
         private val textView = itemView.apply { setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f) }
 
         fun bind(log: LogMessage) {
-            textView.text = log.getFormattedMessage()
+            textView.text = log.formattedMessage
             textView.setTextColor(ContextCompat.getColor(textView.context, log.color))
         }
     }
