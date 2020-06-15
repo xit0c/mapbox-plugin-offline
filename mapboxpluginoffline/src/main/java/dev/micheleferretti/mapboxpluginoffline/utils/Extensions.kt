@@ -9,10 +9,9 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
  *
  * @param key a String
  * @return a long value
- * @throws IllegalArgumentException
+ * @throws ClassCastException
  */
-fun Bundle.requireLong(key: String): Long =
-    this.get(key) as? Long ?: throw IllegalArgumentException("Required value is missing or not a Long")
+fun Bundle.requireLong(key: String): Long = this.get(key) as Long
 
 /**
  * Returns a `String` representation of this object.

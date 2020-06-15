@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.snapshotter.MapSnapshotter
 import dev.micheleferretti.mapboxpluginoffline.OfflineService
@@ -47,7 +48,7 @@ internal class OfflineDownloadJob(
             context.resources.getDimension(android.R.dimen.notification_large_icon_width).toInt(),
             context.resources.getDimension(android.R.dimen.notification_large_icon_height).toInt()
         ).apply {
-            withStyle(options.definition.styleURL)
+            withStyleBuilder(Style.Builder().fromUri(options.definition.styleURL))
             withRegion(options.definition.bounds)
         }).apply {
             start {

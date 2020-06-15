@@ -12,7 +12,7 @@ Returns the value associated with the given key, if exists and is of the desired
 
 ### Exceptions
 
-`IllegalArgumentException` -
+`ClassCastException` -
 
 **Return**
 a long value

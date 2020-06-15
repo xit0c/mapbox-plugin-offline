@@ -1,16 +1,18 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
 
 File secretPropsFile = file('../secret.properties')
 Properties secretProps = new Properties()
 if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
 
-String libVersionName = '2.0.11'
-String javadocDir = "$buildDir/javadoc"
-String docsDir = "$rootDir/docs"
+String libName = 'mapbox-plugin-offline'
+String libDescription = 'An alternative to Mapbox offline plugin, written in Kotlin.'
+String libGithubRepo = 'xit0c/mapbox-plugin-offline'
+String libUrl = "https://github.com/$libGithubRepo"
 
 android {
     compileSdkVersion 29
@@ -18,13 +20,13 @@ android {
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
-        versionName libVersionName
+        versionName '2.0.12'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         archivesBaseName = "$archivesBaseName-$versionName"
     }
     dokka {
         outputFormat = 'gfm'
-        outputDirectory = javadocDir
+        outputDirectory = "$buildDir/javadoc"
         configuration {
             sourceLink {
                 path = "./"
@@ -67,27 +69,77 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_junit_version"
 }
 
-publish {
-    userOrg = ''
-    repoName = 'mapbox-plugin-offline'
-    groupId = 'dev.micheleferretti'
-    artifactId = 'mapbox-plugin-offline'
-    publishVersion = libVersionName
-    desc = 'An alternative to Mapbox offline plugin, written in Kotlin.'
-    website = 'https://github.com/xit0c/mapbox-plugin-offline'
-    bintrayUser = secretProps.getProperty('bintray.user', '')
-    bintrayKey = secretProps.getProperty('bintray.key', '')
-    dryRun = false
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+
+                groupId = 'dev.micheleferretti'
+                artifactId = 'mapbox-plugin-offline'
+                version = android.defaultConfig.versionName
+
+                artifact androidJavadocsJar
+                artifact androidSourcesJar
+
+                pom {
+                    name = libName
+                    description = libDescription
+                    url = libUrl
+                    licenses {
+                        license {
+                            name = 'MIT'
+                            url = 'https://spdx.org/licenses/MIT.html'
+                        }
+                    }
+                    scm {
+                        connection = "scm:git:${libUrl}.git"
+                        developerConnection = "scm:git:${libUrl}.git"
+                        url = libUrl
+                    }
+                }
+            }
+        }
+    }
 }
 
-task cleanDocs(type: Delete, group: 'Documentation') {
-    println "Cleaning up $javadocDir and $docsDir"
-    delete javadocDir
-    delete docsDir
+bintray {
+    user = secretProps.getProperty('bintray.user', '')
+    key = secretProps.getProperty('bintray.key', '')
+    publications = ['release']
+    dryRun = true
+    publish = true
+    override = false
+    pkg {
+        repo = 'mapbox-plugin-offline'
+        name = libName
+        desc = libDescription
+        websiteUrl = libUrl
+        issueTrackerUrl = "$libUrl/issues"
+        vcsUrl = "${libUrl}.git"
+        licenses = ['MIT']
+        githubRepo = libGithubRepo
+        githubReleaseNotesFile = 'README.md'
+        version {
+            name = android.defaultConfig.versionName
+            released = new Date()
+            vcsTag = android.defaultConfig.versionName
+        }
+    }
 }
 
-task copyDocs(type: Copy, group: 'Documentation') {
-    println "Copying files from $javadocDir/$project.name to $docsDir"
-    from "$javadocDir/$project.name"
-    into docsDir
+task androidJavadocsJar(type: Jar, dependsOn: dokka) {
+    archiveClassifier.set('javadoc')
+    from dokka.outputDirectory
+}
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
+task syncDocs(type: Sync, dependsOn: dokka, group: 'Documentation') {
+    description "Sync docs from build javadoc dir to project docs dir"
+    from "$dokka.outputDirectory/$project.name"
+    into "$rootDir/docs"
 }
