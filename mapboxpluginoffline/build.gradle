@@ -5,10 +5,6 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-File secretPropsFile = file('../secret.properties')
-Properties secretProps = new Properties()
-if (secretPropsFile.exists()) secretProps.load(secretPropsFile.newDataInputStream())
-
 String libName = 'mapbox-plugin-offline'
 String libDescription = 'An alternative to Mapbox offline plugin, written in Kotlin.'
 String libGithubRepo = 'xit0c/mapbox-plugin-offline'
@@ -20,7 +16,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
-        versionName '2.0.12'
+        versionName '2.0.13'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         archivesBaseName = "$archivesBaseName-$versionName"
     }
@@ -40,9 +36,6 @@ android {
         }
     }
     buildTypes {
-        debug {
-            buildConfigField('String', 'MAPBOX_ACCESS_TOKEN', '"' + secretProps.getProperty('mapbox.accessToken', '') + '"' )
-        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -104,8 +97,8 @@ afterEvaluate {
 }
 
 bintray {
-    user = secretProps.getProperty('bintray.user', '')
-    key = secretProps.getProperty('bintray.key', '')
+    user = bintray_user
+    key = bintray_key
     publications = ['release']
     dryRun = false
     publish = true
