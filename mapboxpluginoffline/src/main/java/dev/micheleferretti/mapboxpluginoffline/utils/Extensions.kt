@@ -2,6 +2,7 @@ package dev.micheleferretti.mapboxpluginoffline.utils
 
 import android.os.Bundle
 import com.mapbox.mapboxsdk.camera.CameraPosition
+import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 
 /**
@@ -12,6 +13,23 @@ import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
  * @throws ClassCastException
  */
 fun Bundle.requireLong(key: String): Long = this.get(key) as Long
+
+/**
+ * Returns a `String` representation of this object.
+ * @return a `String` representation of this object.
+ */
+fun OfflineRegion.convertToString() = "OfflineRegion(" +
+        "id=$id, " +
+        "name=${getName()}, " +
+        "definition=${definition.convertToString()}, " +
+        "isDeliveringInactiveMessages=$isDeliveringInactiveMessages" +
+        ")"
+
+/**
+ * Returns the region name converting `metadata` with [OfflineUtils.convertRegionName].
+ * @return the region name converting `metadata` with [OfflineUtils.convertRegionName].
+ */
+fun OfflineRegion.getName() = OfflineUtils.convertRegionName(metadata)
 
 /**
  * Returns a `String` representation of this object.

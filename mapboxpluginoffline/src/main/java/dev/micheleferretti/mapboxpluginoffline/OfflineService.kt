@@ -96,8 +96,8 @@ class OfflineService : Service() {
                     options.metadata ?: byteArrayOf(),
                     object : OfflineManager.CreateOfflineRegionCallback {
                         override fun onCreate(offlineRegion: OfflineRegion?) {
-                            if (offlineRegion != null) startJob(OfflineDownloadJob(applicationContext, options, offlineRegion))
-                            else OfflineDownloadReceiver.dispatchCreateError(applicationContext, options, "OfflineRegion is null")
+                            if (offlineRegion == null) onError("offlineRegion is null")
+                            else startJob(OfflineDownloadJob(applicationContext, options, offlineRegion))
                         }
 
                         override fun onError(error: String?) {
@@ -106,8 +106,9 @@ class OfflineService : Service() {
                     }
                 )
             }
-            ACTION_CANCEL -> intent.extras?.requireLong(EXTRA_REGION_ID)?.also {
-                val job = jobs[it]
+            ACTION_CANCEL -> {
+                val regionId = requireNotNull(intent.extras).requireLong(EXTRA_REGION_ID)
+                val job = jobs[regionId]
                 if (job != null) {
                     notificationManager.notify(job.region.id.toInt(), job.getNotificationCancel())
                     job.region.setDownloadState(OfflineRegion.STATE_INACTIVE)
@@ -115,12 +116,12 @@ class OfflineService : Service() {
                     job.region.delete(object : OfflineRegion.OfflineRegionDeleteCallback {
                         override fun onDelete() {
                             OfflineDownloadReceiver.dispatchDelete(applicationContext, job.download)
-                            finishJob(it)
+                            finishJob(regionId)
                         }
 
                         override fun onError(error: String?) {
                             OfflineDownloadReceiver.dispatchDeleteError(applicationContext, job.download, error)
-                            finishJob(it)
+                            finishJob(regionId)
                         }
                     })
                 }
@@ -177,10 +178,11 @@ class OfflineService : Service() {
         startForeground(job.region.id.toInt(), job.getNotificationDownload())
     }
 
-    private fun finishJob(id: Long) {
-        val job = jobs.remove(id)
+    @Synchronized
+    private fun finishJob(regionId: Long) {
+        val job = jobs.remove(regionId)
         if (job != null) {
-            notificationManager.cancel(id.toInt())
+            notificationManager.cancel(regionId.toInt())
             job.cancelSnapshotter()
         }
         if (jobs.isEmpty()) {

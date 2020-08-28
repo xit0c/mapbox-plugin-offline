@@ -13,4 +13,5 @@
 | Name | Summary |
 |---|---|
 | [android.os.Bundle](android.os.-bundle/index.md) |  |
+| [com.mapbox.mapboxsdk.offline.OfflineRegion](com.mapbox.mapboxsdk.offline.-offline-region/index.md) |  |
 | [com.mapbox.mapboxsdk.offline.OfflineRegionDefinition](com.mapbox.mapboxsdk.offline.-offline-region-definition/index.md) |  |
