@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.mapbox.mapboxsdk.camera.CameraPosition
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
+import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
 
 /**
  * Returns the value associated with the given key, if exists and is of the desired type. Otherwise throws.
@@ -51,3 +52,10 @@ fun OfflineRegionDefinition.convertToString() = "OfflineRegionDefinition(" +
  */
 fun OfflineRegionDefinition.getCameraPosition() =
     CameraPosition.Builder().target(bounds.center).zoom(minZoom).build()
+
+/**
+ * Returns the `OfflineRegionStatus` resources completion percentage.
+ * @return the `OfflineRegionStatus` resources completion percentage.
+ */
+fun OfflineRegionStatus.getCompletionPercentage() =
+    OfflineUtils.getCompletionPercentage(completedResourceCount, requiredResourceCount)

@@ -2,7 +2,7 @@
 
 # OfflineDownload
 
-`class OfflineDownload : `[`Parcelable`](https://developer.android.com/reference/android/os/Parcelable.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L21)
+`class OfflineDownload : `[`Parcelable`](https://developer.android.com/reference/android/os/Parcelable.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L22)
 
 This model represents the download managed by
 the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md).
@@ -30,14 +30,8 @@ the `OfflineRegionObserver` attached to the region in order to monitor its downl
 |---|---|
 | [getCompletedResourceCount](get-completed-resource-count.md) | As in `OfflineRegionStatus`, returns the number of resources that have been fully download.`fun getCompletedResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 | [getCompletedResourceSize](get-completed-resource-size.md) | As in `OfflineRegionStatus`, returns the cumulative size, in bytes, of all resources that have been fully downloaded.`fun getCompletedResourceSize(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
-| [getPercentage](get-percentage.md) | Returns the download completion percentage.`fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [getPercentage](get-percentage.md) | Returns the download's resources completion percentage.`fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
 | [getRequiredResourceCount](get-required-resource-count.md) | As in `OfflineRegionStatus`, returns the number of resources that are known to be required.`fun getRequiredResourceCount(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) |
 | [isActive](is-active.md) | Validates if `OfflineRegionStatus.getDownloadState()` equals `OfflineRegion.STATE_ACTIVE`.`fun isActive(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [isComplete](is-complete.md) | As in `OfflineRegionStatus`, validates if the region download has completed.`fun isComplete(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
 | [toString](to-string.md) | Returns a `String` representation of this object.`fun toString(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-
-### Companion Object Functions
-
-| Name | Summary |
-|---|---|
-| [getPercentage](get-percentage.md) | Returns the completion percentage.`fun getPercentage(completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |

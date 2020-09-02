@@ -2,7 +2,7 @@
 
 # smallIconRes
 
-`val smallIconRes: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L22)
+`val smallIconRes: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L23)
 
 [DrawableRes](https://developer.android.com/reference/androidx/annotation/DrawableRes.html) id of the notification small icon.
 

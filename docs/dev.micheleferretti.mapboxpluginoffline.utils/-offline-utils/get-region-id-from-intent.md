@@ -2,7 +2,7 @@
 
 # getRegionIdFromIntent
 
-`fun getRegionIdFromIntent(intent: `[`Intent`](https://developer.android.com/reference/android/content/Intent.html)`): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`?` [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/utils/OfflineUtils.kt#L50)
+`fun getRegionIdFromIntent(intent: `[`Intent`](https://developer.android.com/reference/android/content/Intent.html)`): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`?` [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/utils/OfflineUtils.kt#L60)
 
 Returns the region id contained in `intent.extras`, if any.
 

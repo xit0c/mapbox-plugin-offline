@@ -2,6 +2,7 @@ package dev.micheleferretti.mapboxpluginoffline.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
+import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -31,7 +32,7 @@ class NotificationOptions @JvmOverloads constructor(
 
         /**
          * Key for the `OfflineRegion` id put as an extra of the Intent used to start [returnActivity].
-         * @see dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils.getRegionIdFromIntent
+         * @see OfflineUtils.getRegionIdFromIntent
          */
         const val EXTRA_REGION_ID_FOR_ACTIVITY = "extra.REGION_ID_FOR_ACTIVITY"
     }

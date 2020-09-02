@@ -2,7 +2,7 @@
 
 # NotificationOptions
 
-`class NotificationOptions : `[`Parcelable`](https://developer.android.com/reference/android/os/Parcelable.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L21)
+`class NotificationOptions : `[`Parcelable`](https://developer.android.com/reference/android/os/Parcelable.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L22)
 
 This model represents the options for the notification shown by
 the [OfflineService](../../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md).

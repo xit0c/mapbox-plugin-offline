@@ -10,10 +10,10 @@ import com.mapbox.mapboxsdk.offline.OfflineManager
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionError
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
-import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadJob
 import dev.micheleferretti.mapboxpluginoffline.utils.NotificationUtils
+import dev.micheleferretti.mapboxpluginoffline.utils.getCompletionPercentage
 import dev.micheleferretti.mapboxpluginoffline.utils.requireLong
 
 /**
@@ -150,7 +150,7 @@ class OfflineService : Service() {
                     }
                     else -> {
                         val oldPercentage = job.download.getPercentage()
-                        val newPercentage = OfflineDownload.getPercentage(status.completedResourceCount, status.requiredResourceCount)
+                        val newPercentage = status.getCompletionPercentage()
                         if (newPercentage >= (oldPercentage + 2)) {
                             job.download.setStatus(status)
                             notificationManager.notify(job.region.id.toInt(), job.getNotificationDownload())

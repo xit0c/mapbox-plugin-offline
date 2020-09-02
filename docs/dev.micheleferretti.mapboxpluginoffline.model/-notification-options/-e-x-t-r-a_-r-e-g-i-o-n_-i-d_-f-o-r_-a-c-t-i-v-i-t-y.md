@@ -2,11 +2,11 @@
 
 # EXTRA_REGION_ID_FOR_ACTIVITY
 
-`const val EXTRA_REGION_ID_FOR_ACTIVITY: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L36)
+`const val EXTRA_REGION_ID_FOR_ACTIVITY: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/NotificationOptions.kt#L37)
 
 Key for the `OfflineRegion` id put as an extra of the Intent used to start [returnActivity](return-activity.md).
 
 **See Also**
 
-[dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils.getRegionIdFromIntent](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/get-region-id-from-intent.md)
+[OfflineUtils.getRegionIdFromIntent](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/get-region-id-from-intent.md)
 

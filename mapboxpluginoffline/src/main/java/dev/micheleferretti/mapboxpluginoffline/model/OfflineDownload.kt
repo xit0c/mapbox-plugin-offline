@@ -3,6 +3,7 @@ package dev.micheleferretti.mapboxpluginoffline.model
 import android.os.Parcelable
 import com.mapbox.mapboxsdk.offline.OfflineRegion
 import com.mapbox.mapboxsdk.offline.OfflineRegionStatus
+import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -26,18 +27,6 @@ class OfflineDownload(
     private var completedResourceSize: Long,
     private var isActive: Boolean
 ): Parcelable {
-    companion object {
-
-        /**
-         * Returns the completion percentage.
-         * @param completedResourceCount number of resources that have been fully download.
-         * @param requiredResourceCount number of resources that are known to be required.
-         * @return the completion percentage.
-         */
-        @JvmStatic
-        fun getPercentage(completedResourceCount: Long, requiredResourceCount: Long) =
-            (if (requiredResourceCount > 0) 100.0 * completedResourceCount / requiredResourceCount else 0.0).toInt()
-    }
 
     /**
      * Creates a `OfflineDownload` with the given values and no status data.
@@ -63,10 +52,11 @@ class OfflineDownload(
     fun getCompletedResourceSize() = completedResourceSize
 
     /**
-     * Returns the download completion percentage.
-     * @return the download completion percentage.
+     * Returns the download's resources completion percentage.
+     * @return the download's resources completion percentage.
+     * @see OfflineUtils.getCompletionPercentage
      */
-    fun getPercentage() = getPercentage(completedResourceCount, requiredResourceCount)
+    fun getPercentage() = OfflineUtils.getCompletionPercentage(completedResourceCount, requiredResourceCount)
 
     /**
      * Validates if `OfflineRegionStatus.getDownloadState()` equals `OfflineRegion.STATE_ACTIVE`.

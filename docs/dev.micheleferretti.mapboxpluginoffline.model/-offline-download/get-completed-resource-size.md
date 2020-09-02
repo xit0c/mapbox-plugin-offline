@@ -2,7 +2,7 @@
 
 # getCompletedResourceSize
 
-`fun getCompletedResourceSize(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L63)
+`fun getCompletedResourceSize(): `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L52)
 
 As in `OfflineRegionStatus`, returns the cumulative size, in bytes, of all resources that have been fully downloaded.
 

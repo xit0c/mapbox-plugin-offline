@@ -51,6 +51,11 @@ events and monitor active downloads.
 ##### [com.mapbox.mapboxsdk.offline.OfflineRegionDefinition](../dev.micheleferretti.mapboxpluginoffline.utils/com.mapbox.mapboxsdk.offline.-offline-region-definition/index.md)
 
 
+| (extensions in package dev.micheleferretti.mapboxpluginoffline.utils)
+
+##### [com.mapbox.mapboxsdk.offline.OfflineRegionStatus](../dev.micheleferretti.mapboxpluginoffline.utils/com.mapbox.mapboxsdk.offline.-offline-region-status/index.md)
+
+
 |
 
 ##### [dev.micheleferretti.mapboxpluginoffline.OfflineService](../dev.micheleferretti.mapboxpluginoffline/-offline-service/index.md)

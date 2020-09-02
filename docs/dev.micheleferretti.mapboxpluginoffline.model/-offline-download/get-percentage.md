@@ -2,23 +2,14 @@
 
 # getPercentage
 
-`fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L69)
+`fun getPercentage(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L59)
 
-Returns the download completion percentage.
-
-**Return**
-the download completion percentage.
-
-`@JvmStatic fun getPercentage(completedResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`, requiredResourceCount: `[`Long`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) [(source)](https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/src/main/java/dev/micheleferretti/mapboxpluginoffline/model/OfflineDownload.kt#L38)
-
-Returns the completion percentage.
-
-### Parameters
-
-`completedResourceCount` - number of resources that have been fully download.
-
-`requiredResourceCount` - number of resources that are known to be required.
+Returns the download's resources completion percentage.
 
 **Return**
-the completion percentage.
+the download's resources completion percentage.
+
+**See Also**
+
+[OfflineUtils.getCompletionPercentage](../../dev.micheleferretti.mapboxpluginoffline.utils/-offline-utils/get-completion-percentage.md)
 
