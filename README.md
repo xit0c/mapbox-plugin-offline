@@ -5,7 +5,7 @@ An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugi
 
 This plugin is published to [Bintray's JCenter](https://bintray.com/bintray/jcenter). Include it in your `build.gradle` file with
 ```gradle
-implementation 'dev.micheleferretti:mapbox-plugin-offline:2.2.2'
+implementation 'dev.micheleferretti:mapbox-plugin-offline:2.2.3'
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ val notificationOptions = NotificationOptions(
 )
 ```
 
-Then, togheter with an [OfflineRegionDefinition](https://docs.mapbox.com/android/maps/overview/offline/#defining-a-region) and an optional [metadata](https://docs.mapbox.com/android/maps/overview/offline/#metadata) `ByteArray`, use it to create an `OfflineDownloadOptions`
+Then, together with an [OfflineRegionDefinition](https://docs.mapbox.com/android/maps/overview/offline/#defining-a-region) and an optional [metadata](https://docs.mapbox.com/android/maps/overview/offline/#metadata) `ByteArray`, use it to create an `OfflineDownloadOptions`
 
 ```kotlin
 val offlineDownloadOptions = OfflineDownloadOptions(

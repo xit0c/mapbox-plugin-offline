@@ -6,7 +6,7 @@ buildscript {
         androidx_test_junit_version = '1.1.2'
         junit_version = '4.12'
         kotlin_version = '1.4.10'
-        mapbox_version = '9.5.1'
+        mapbox_version = '9.6.0'
 
         File secretPropsFile = file('secret.properties')
         Properties secretProps = new Properties()

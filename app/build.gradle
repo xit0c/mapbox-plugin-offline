@@ -31,7 +31,7 @@ dependencies {
 
     // AndroidX
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "androidx.core:core-ktx:$androidx_core_version"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
