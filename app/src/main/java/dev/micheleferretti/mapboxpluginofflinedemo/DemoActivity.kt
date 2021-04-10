@@ -16,26 +16,31 @@ import dev.micheleferretti.mapboxpluginoffline.OfflineService
 import dev.micheleferretti.mapboxpluginoffline.model.NotificationOptions
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownload
 import dev.micheleferretti.mapboxpluginoffline.model.OfflineDownloadOptions
-import kotlinx.android.synthetic.main.activity_demo.*
+import dev.micheleferretti.mapboxpluginofflinedemo.databinding.ActivityDemoBinding
 
-class DemoActivity : AppCompatActivity(R.layout.activity_demo), View.OnClickListener {
+class DemoActivity : AppCompatActivity(), View.OnClickListener {
+
+    private lateinit var binding: ActivityDemoBinding
 
     private val logAdapter = LogAdapter()
     private val receiver = Receiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        active_downloads_btn.setOnClickListener(this)
-        download_btn.setOnClickListener(this)
-        logs_rv.apply {
+        binding = ActivityDemoBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.activeDownloadsBtn.setOnClickListener(this)
+        binding.downloadBtn.setOnClickListener(this)
+        binding.logsRv.apply {
             setHasFixedSize(true)
             addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
             layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true)
             adapter = logAdapter
         }
 
-        map?.onCreate(savedInstanceState)
-        map?.getMapAsync { it.setStyle(Style.MAPBOX_STREETS) }
+        binding.map.onCreate(savedInstanceState)
+        binding.map.getMapAsync { it.setStyle(Style.MAPBOX_STREETS) }
     }
 
     override fun onClick(v: View?) {
@@ -45,7 +50,7 @@ class DemoActivity : AppCompatActivity(R.layout.activity_demo), View.OnClickList
                 Toast.makeText(v.context, "Count: ${receiver.getActiveDownloads().size}", Toast.LENGTH_SHORT).show()
             }
             R.id.download_btn -> {
-                map?.getMapAsync {
+                binding.map.getMapAsync {
                     OfflineService.startDownload(this, OfflineDownloadOptions(
                         OfflineTilePyramidRegionDefinition(
                             Style.MAPBOX_STREETS,
@@ -73,39 +78,39 @@ class DemoActivity : AppCompatActivity(R.layout.activity_demo), View.OnClickList
 
     override fun onStart() {
         super.onStart()
-        map?.onStart()
+        binding.map.onStart()
         receiver.register(this)
     }
 
     override fun onResume() {
         super.onResume()
-        map?.onResume()
+        binding.map.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        map?.onPause()
+        binding.map.onPause()
     }
 
     override fun onStop() {
         super.onStop()
-        map?.onStop()
+        binding.map.onStop()
         receiver.unregister(this)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        map?.onSaveInstanceState(outState)
+        binding.map.onSaveInstanceState(outState)
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        map?.onLowMemory()
+        binding.map.onLowMemory()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        map?.onDestroy()
+        binding.map.onDestroy()
     }
 
     // Receiver class

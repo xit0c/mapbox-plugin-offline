@@ -4,9 +4,9 @@ buildscript {
         androidx_test_runner_version = '1.3.0'
         androidx_test_espresso_version = '3.3.0'
         androidx_test_junit_version = '1.1.2'
-        junit_version = '4.12'
-        kotlin_version = '1.4.10'
-        mapbox_version = '9.6.0'
+        junit_version = '4.13.2'
+        kotlin_version = '1.4.32'
+        mapbox_version = '9.6.1'
 
         File secretPropsFile = file('secret.properties')
         Properties secretProps = new Properties()
@@ -22,7 +22,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath 'com.android.tools.build:gradle:4.1.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5'
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.10.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"

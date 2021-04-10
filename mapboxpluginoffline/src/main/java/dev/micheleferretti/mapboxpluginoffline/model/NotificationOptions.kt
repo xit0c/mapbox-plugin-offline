@@ -3,7 +3,7 @@ package dev.micheleferretti.mapboxpluginoffline.model
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * This model represents the options for the notification shown by

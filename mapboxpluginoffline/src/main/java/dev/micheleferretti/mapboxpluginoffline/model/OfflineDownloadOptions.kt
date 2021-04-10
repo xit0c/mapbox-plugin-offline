@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.mapbox.mapboxsdk.offline.OfflineRegionDefinition
 import dev.micheleferretti.mapboxpluginoffline.utils.OfflineUtils
 import dev.micheleferretti.mapboxpluginoffline.utils.convertToString
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * This model represents the options for the download managed by
