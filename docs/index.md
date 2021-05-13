@@ -9,7 +9,7 @@
   
 |  Name | 
 |---|
-| <a name="dev.micheleferretti.mapboxpluginoffline////PointingToDeclaration/"></a>[dev.micheleferretti.mapboxpluginoffline](mapboxpluginoffline/dev.micheleferretti.mapboxpluginoffline/index.md)|
-| <a name="dev.micheleferretti.mapboxpluginoffline.model////PointingToDeclaration/"></a>[dev.micheleferretti.mapboxpluginoffline.model](mapboxpluginoffline/dev.micheleferretti.mapboxpluginoffline.model/index.md)|
-| <a name="dev.micheleferretti.mapboxpluginoffline.utils////PointingToDeclaration/"></a>[dev.micheleferretti.mapboxpluginoffline.utils](mapboxpluginoffline/dev.micheleferretti.mapboxpluginoffline.utils/index.md)|
+| <a name="io.github.xit0c.mapboxpluginoffline////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline/index.md)|
+| <a name="io.github.xit0c.mapboxpluginoffline.model////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline.model](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline.model/index.md)|
+| <a name="io.github.xit0c.mapboxpluginoffline.utils////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline.utils](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline.utils/index.md)|
 
