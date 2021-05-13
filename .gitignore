@@ -5,5 +5,4 @@ captures/
 .gradle
 build/
 /local.properties
-/secret.properties
 .DS_Store
