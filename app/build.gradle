@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "dev.micheleferretti.mapboxpluginofflinedemo"
+        applicationId "io.github.xit0c.mapboxpluginofflinedemo"
         minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
