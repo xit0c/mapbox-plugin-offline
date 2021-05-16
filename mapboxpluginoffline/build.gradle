@@ -1,14 +1,15 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-parcelize'
+    id 'org.jetbrains.dokka'
+    id 'maven-publish'
+    id 'signing'
+}
 
 String libName = 'mapbox-plugin-offline'
 String libDescription = 'An alternative to Mapbox offline plugin, written in Kotlin.'
-String libGithubRepo = 'xit0c/mapbox-plugin-offline'
-String libUrl = "https://github.com/$libGithubRepo"
+String libUrl = "https://github.com/xit0c/$libName"
 
 android {
     compileSdkVersion 30
@@ -16,24 +17,9 @@ android {
         minSdkVersion 14
         targetSdkVersion 30
         versionCode 1
-        versionName '2.2.4'
+        versionName '3.0.0'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         archivesBaseName = "$archivesBaseName-$versionName"
-    }
-    dokka {
-        outputFormat = 'gfm'
-        outputDirectory = "$buildDir/javadoc"
-        configuration {
-            sourceLink {
-                path = "./"
-                url = "https://github.com/xit0c/mapbox-plugin-offline/tree/master/mapboxpluginoffline/"
-                lineSuffix = "#L" // suffix used to append the line number to the URL (#L for GitHub)
-            }
-            externalDocumentationLink {
-                url = new URL("https://developer.android.com/reference/")
-                packageListUrl = new URL("https://developer.android.com/reference/androidx/package-list")
-            }
-        }
     }
     buildTypes {
         release {
@@ -62,14 +48,44 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$androidx_test_junit_version"
 }
 
+dokkaGfm {
+    outputDirectory.set(file("$buildDir/javadoc"))
+    suppressInheritedMembers.set(true)
+    dokkaSourceSets {
+        configureEach {
+            sourceLink {
+                localDirectory.set(file("./"))
+                remoteUrl.set(new URL("$libUrl/tree/master/mapboxpluginoffline"))
+                remoteLineSuffix.set("#L") // suffix used to append the line number to the URL (#L for GitHub)
+            }
+        }
+    }
+}
+
+task androidJavadocsJar(type: Jar, dependsOn: dokkaGfm) {
+    archiveClassifier.set('javadoc')
+    from dokkaGfm.outputDirectory
+}
+
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
+}
+
+task syncDocs(type: Sync, dependsOn: dokkaGfm, group: 'Documentation') {
+    description "Sync docs from build javadoc dir to project docs dir"
+    from dokkaGfm.outputDirectory
+    into "$rootDir/docs"
+}
+
 afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'dev.micheleferretti'
-                artifactId = 'mapbox-plugin-offline'
+                groupId = 'io.github.xit0c'
+                artifactId = libName
                 version = android.defaultConfig.versionName
 
                 artifact androidJavadocsJar
@@ -79,60 +95,46 @@ afterEvaluate {
                     name = libName
                     description = libDescription
                     url = libUrl
+
+                    scm {
+                        connection = "scm:git:${libUrl}.git"
+                        developerConnection = "scm:git:${libUrl}.git"
+                        url = libUrl
+                    }
+
                     licenses {
                         license {
                             name = 'MIT'
                             url = 'https://spdx.org/licenses/MIT.html'
                         }
                     }
-                    scm {
-                        connection = "scm:git:${libUrl}.git"
-                        developerConnection = "scm:git:${libUrl}.git"
-                        url = libUrl
+
+                    developers {
+                        developer {
+                            id = 'xit0c'
+                            name = 'Michele Ferretti'
+                            email = 'michele.ferretti.93@gmail.com'
+                        }
                     }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+                authentication {
+                    basic(BasicAuthentication)
+                }
+                credentials {
+                    username = ossrhUsername
+                    password = ossrhPassword
                 }
             }
         }
     }
 }
 
-bintray {
-    user = bintray_user
-    key = bintray_key
-    publications = ['release']
-    dryRun = false
-    publish = true
-    override = false
-    pkg {
-        repo = 'mapbox-plugin-offline'
-        name = libName
-        desc = libDescription
-        websiteUrl = libUrl
-        issueTrackerUrl = "$libUrl/issues"
-        vcsUrl = "${libUrl}.git"
-        licenses = ['MIT']
-        githubRepo = libGithubRepo
-        githubReleaseNotesFile = 'README.md'
-        version {
-            name = android.defaultConfig.versionName
-            released = new Date()
-            vcsTag = android.defaultConfig.versionName
-        }
-    }
-}
-
-task androidJavadocsJar(type: Jar, dependsOn: dokka) {
-    archiveClassifier.set('javadoc')
-    from dokka.outputDirectory
-}
-
-task androidSourcesJar(type: Jar) {
-    archiveClassifier.set('sources')
-    from android.sourceSets.main.java.srcDirs
-}
-
-task syncDocs(type: Sync, dependsOn: dokka, group: 'Documentation') {
-    description "Sync docs from build javadoc dir to project docs dir"
-    from "$dokka.outputDirectory/$project.name"
-    into "$rootDir/docs"
+signing {
+    sign publishing.publications
 }

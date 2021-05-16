@@ -1,13 +1,15 @@
-[mapboxpluginoffline](./index.md)
+//[mapboxpluginoffline](index.md)
 
-### Packages
 
-| Name | Summary |
-|---|---|
-| [dev.micheleferretti.mapboxpluginoffline](dev.micheleferretti.mapboxpluginoffline/index.md) |  |
-| [dev.micheleferretti.mapboxpluginoffline.model](dev.micheleferretti.mapboxpluginoffline.model/index.md) |  |
-| [dev.micheleferretti.mapboxpluginoffline.utils](dev.micheleferretti.mapboxpluginoffline.utils/index.md) |  |
 
-### Index
+# mapboxpluginoffline  
 
-[All Types](alltypes/index.md)
+
+## Packages  
+  
+|  Name | 
+|---|
+| <a name="io.github.xit0c.mapboxpluginoffline////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline/index.md)|
+| <a name="io.github.xit0c.mapboxpluginoffline.model////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline.model](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline.model/index.md)|
+| <a name="io.github.xit0c.mapboxpluginoffline.utils////PointingToDeclaration/"></a>[io.github.xit0c.mapboxpluginoffline.utils](mapboxpluginoffline/io.github.xit0c.mapboxpluginoffline.utils/index.md)|
+
