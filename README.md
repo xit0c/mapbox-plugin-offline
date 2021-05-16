@@ -1,5 +1,6 @@
 # mapbox-plugin-offline
 An alternative to [Mapbox offline plugin](https://github.com/mapbox/mapbox-plugins-android/tree/master/plugin-offline) for Android, written in [Kotlin](https://kotlinlang.org/).
+Generated docs available [here](https://xit0c.github.io/mapbox-plugin-offline/).
 
 ## Getting Started
 
