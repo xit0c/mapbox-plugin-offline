@@ -7,7 +7,7 @@ Generated docs available [here](https://xit0c.github.io/mapbox-plugin-offline).
 This plugin is published to [Maven Central](https://search.maven.org/artifact/io.github.xit0c/mapbox-plugin-offline).
 Include it in your `build.gradle` file with
 ```gradle
-implementation 'io.github.xit0c:mapbox-plugin-offline:3.0.0'
+implementation 'io.github.xit0c:mapbox-plugin-offline:3.0.1'
 ```
 
 Note: older versions (`<= 2.2.3`) were published to Bintray's JCenter before its
