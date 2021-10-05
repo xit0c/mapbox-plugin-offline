@@ -1,24 +1,12 @@
 //[mapboxpluginoffline](../../../index.md)/[io.github.xit0c.mapboxpluginoffline.model](../index.md)/[OfflineDownloadOptions](index.md)/[getRegionName](get-region-name.md)
 
+# getRegionName
 
-
-# getRegionName  
-[androidJvm]  
-Content  
-fun [getRegionName](get-region-name.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?  
-More info  
-
+[androidJvm]\
+fun [getRegionName](get-region-name.md)(): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)?
 
 Returns the region name converting [metadata](metadata.md) with [OfflineUtils.convertRegionName](../../io.github.xit0c.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md).
 
-
-
-#### Return  
-
+#### Return
 
 the region name converting [metadata](metadata.md) with [OfflineUtils.convertRegionName](../../io.github.xit0c.mapboxpluginoffline.utils/-offline-utils/convert-region-name.md).
-
-  
-
-
-

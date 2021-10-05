@@ -1,11 +1,6 @@
 //[mapboxpluginoffline](../../../index.md)/[io.github.xit0c.mapboxpluginoffline.model](../index.md)/[NotificationOptions](index.md)/[contentTitle](content-title.md)
 
+# contentTitle
 
-
-# contentTitle  
-[androidJvm]  
-Content  
-val [contentTitle](content-title.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)  
-
-
-
+[androidJvm]\
+val [contentTitle](content-title.md): [String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)

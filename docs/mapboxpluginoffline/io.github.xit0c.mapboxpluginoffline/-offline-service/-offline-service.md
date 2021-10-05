@@ -1,11 +1,6 @@
 //[mapboxpluginoffline](../../../index.md)/[io.github.xit0c.mapboxpluginoffline](../index.md)/[OfflineService](index.md)/[OfflineService](-offline-service.md)
 
+# OfflineService
 
-
-# OfflineService  
-[androidJvm]  
-Content  
-fun [OfflineService](-offline-service.md)()  
-
-
-
+[androidJvm]\
+fun [OfflineService](-offline-service.md)()

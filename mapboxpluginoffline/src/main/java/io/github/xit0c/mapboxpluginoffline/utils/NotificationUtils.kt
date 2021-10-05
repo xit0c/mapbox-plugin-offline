@@ -54,8 +54,16 @@ internal object NotificationUtils {
                     Intent(context, notificationOptions.returnActivity).apply {
                         putExtra(NotificationOptions.EXTRA_REGION_ID_FOR_ACTIVITY, regionId)
                     },
-                    0
+                    withFlagImmutable(PendingIntent.FLAG_UPDATE_CURRENT)
                 ))
             }
         }
+
+    /**
+     * Returns the bitwise OR of [flags] with [PendingIntent.FLAG_IMMUTABLE] on API 23+.
+     * @param flags Flags used as operand in the OR operation
+     * @return the bitwise OR of [flags] with [PendingIntent.FLAG_IMMUTABLE]
+     */
+    fun withFlagImmutable(flags: Int): Int =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) flags or PendingIntent.FLAG_IMMUTABLE else flags
 }

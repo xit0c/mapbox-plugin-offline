@@ -40,7 +40,7 @@ internal class OfflineDownloadJob(
                 context,
                 region.id.toInt(),
                 OfflineService.createIntent(context, OfflineService.ACTION_CANCEL, region.id),
-                0
+                NotificationUtils.withFlagImmutable(PendingIntent.FLAG_CANCEL_CURRENT)
             ))
 
     private val snapshotter: MapSnapshotter? = if (!options.notificationOptions.requestMapSnapshot) null else
